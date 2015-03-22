@@ -1,0 +1,194 @@
+{# src/AppBundle/Resources/views/Admin/details.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Admin - Détails contact
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li><a href="{{ path('accueil_admin') }}">Administration</a></li>
+        	<li class="active"><a href="{{ path('contact_details', { 'id': id }) }}">Détails contact</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Admin:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Détails d'un contact</h3>
+
+		<div class="well">
+  		{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+  			{{ form_errors(form) }}
+
+		    <div class="form-group">
+
+		      {{ form_label(form.societe, "Contact pour la société", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.societe) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.societe, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.nomContact, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.nomContact) }}
+
+		      <div class="col-sm-4">
+		        {{ form_widget(form.nomContact, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.prenomContact, "Prénom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.prenomContact) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.prenomContact, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>	
+
+		    <div class="form-group">
+
+		      {{ form_label(form.intitulePoste, "Poste dans la société", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.intitulePoste) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.intitulePoste, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.telFixe, "Téléphone fixe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.telFixe) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.telFixe, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.telMobile, "Téléphone mobile", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.telMobile) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.telMobile, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.fax, "Numéro de fax", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.fax) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.fax, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.email, "Adresse mail", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.email) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.adresse, "Adresse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.adresse) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>	
+
+		    <div class="form-group">
+
+		      {{ form_label(form.codePostal, "Code postal", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.codePostal) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.ville, "Ville", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.ville) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.pays, "Pays", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.pays) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.commentaire, "Commentaires", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.commentaire) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+		    		    
+		    <div id="submitform">
+		    	{{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+		        {{ form_widget(form.annuler, {'attr': {'class': 'btn btn-default'}}) }}
+		    </div>
+
+ 			{{ form_rest(form) }}
+
+	  		{# Fermeture de la balise <form> du formulaire HTML #}
+	  		{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

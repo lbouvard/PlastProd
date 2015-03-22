@@ -1,0 +1,38 @@
+{# src/AppBundle/Resources/view/Client/orderajax.html.twig #}
+
+<div>
+
+    <h3>Commandes</h3>
+
+    <table id="tabliste">
+        <thead>
+            <tr>
+                <th>N° Commande</th>
+                <th>Date de commande</th>
+                <th>Etat</th>
+                <th>Commentaire</th>
+                <th>Suivi par</th>
+                
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for commande in listecommande %}
+                <tr name='com' id='{{ commande[0].id }}'>
+                    <td>{{ commande[0].id }}</td>
+                    <td>{{ commande[0].dateCommande|date('d-m-Y H:i:s') }}</td>
+                    <td>{{ commande[0].etatCommande }}</td>
+                    <td>{{ commande[0].commentaire }}</td>
+                    <td>{{ commande['nomContact'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+        <tfoot>
+        </tfoot>
+    </table>
+
+    <div id="details" data-path="{{ path('commande_details') }}">
+    </div>
+
+</div>

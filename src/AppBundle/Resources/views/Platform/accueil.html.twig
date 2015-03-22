@@ -1,0 +1,26 @@
+{# src/AppBundle/Resources/views/Platform/accueil.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Accueil
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('login') }}">Accueil</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Platform:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Bienvenue sur la plateforme de gestion PlastProd&copy;</h3>
+
+		<img alt="PlastProd" src="{{ asset('images/logo.png') }}" />
+
+		<h4><strong>Nous sommes le {{ "now"| date("d/m/Y", "Europe/Paris") }}, il est {{ "now" | date("H:m:s") }}</strong></h4>
+	</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{# src/AppBundle/Resources/views/Production/bonajax.html.twig #}
+<h3>Bon à jeter</h3>
+
+<div id="cadrebon">
+    <div class="infonomenclature">
+        <h6>Identifiant : <small>{{ production[0].idtElement }}</small></h6>
+        <h6>Code produit: <small>{{ production['codeProduit'] }}</small></h6>
+        <h6>Chaîne : <small>{{ production['nomChaine'] }}</small></h6>
+        <h6>Motif : <small>{{ production['nomRebu'] }}</small></h6>
+        <h6>Date : <small>{{ production[0].dateDebut|date('d-m-Y H:i:s') }}</small></h6>
+    </div>
+
+    <div class="codebarre">
+        <h6><small>Interne</small></h6>
+        <img src="{{ asset(cb_interne) }}">
+        {#{ cb_interne|raw }#}
+    </div>
+
+    <div class="matiere"></div>
+</div>
+
+<div id="bouton_droit">
+    <button type="submit" id="imprimerbonrebut" name="btnimprimer" class="btn btn-primary unique-taille">Imprimer</button>
+    <button type="submit" id="annulernom" name="btnannuler" class="btn btn-default unique-taille" data-path="{{ path('gerer_rebut') }}">Annuler</button>
+</div>

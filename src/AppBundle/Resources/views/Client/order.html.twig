@@ -1,0 +1,60 @@
+{# src/AppBundle/Resources/view/Client/order.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Module client - Commandes
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+            <li><a href="{{ path('accueil_client') }}">Client</a></li>
+            <li class="active"><a href="{{ path('commandes_client') }}">Commandes</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+    {{ render(controller("AppBundle:Client:menu")) }}
+{% endblock %}
+
+{% block body %}
+    <div id="cadrebody">
+
+        {% block titre %}
+            <h3>Commandes</h3>
+        {% endblock %}
+
+
+        <table id="tabliste">
+            <thead>
+                <tr>
+                    <th>N° Commande</th>
+                    <th>Date de commande</th>
+                    <th>Etat</th>
+                    <th>Commentaire</th>
+                    <th>Suivi par</th>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for commande in listecommande %}
+                    <tr name='com' id='{{ commande[0].id }}'>
+                        <td>{{ commande[0].id }}</td>
+                        <td>{{ commande[0].dateCommande|date('d-m-Y H:i:s') }}</td>
+                        <td>{{ commande[0].etatCommande }}</td>
+                        <td>{{ commande[0].commentaire }}</td>
+                        <td>{{ commande['nomContact'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+        </table>
+
+        <div id="details" data-path="{{ path('commande_details') }}">
+        </div>
+
+    </div>
+{% endblock %}
+ 

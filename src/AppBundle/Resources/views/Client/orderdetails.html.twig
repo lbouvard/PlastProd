@@ -1,0 +1,39 @@
+{# src/AppBundle/Resources/view/Client/orderdetails.html.twig #}
+
+<h3>Détails</h3>
+
+<table id="tabliste">
+    <thead>
+        <tr>
+            <th>Code du produit</th>
+            <th>Nom du produit</th>
+            <th>Description</th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% set total = 0 %}
+        {% for ligne in details %}
+            <tr>
+                <td>{{ ligne.codeProduit }}</td>
+                <td>{{ ligne.nomProduit }}</td>
+                <td>{{ ligne.description }}</td>
+                <td>{{ ligne.prixProduit ~ ' €' }}</td>
+                <td>{{ ligne.quantite }}</td>
+                <td>{{ ligne.prixTotal ~ ' €' }}</td>
+            </tr>
+            {% set total = total + ligne.prixTotal %}
+        {% endfor %}
+        <tr>
+            <td colspan="5">Total</td>
+            <td>{{ total ~ ' €' }}</td>
+        </tr>
+
+    </tbody>
+
+    <tfoot>
+    </tfoot>
+</table>

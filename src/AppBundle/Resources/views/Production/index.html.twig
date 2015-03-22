@@ -1,0 +1,60 @@
+{# src/AppBundle/Resources/views/Production/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Module production
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/production-index.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_prod') }}">Production</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Production:menu")) }}
+{% endblock %}
+
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Production en cours</h3>
+
+		<table id="tabliste">
+			<thead>
+				<tr>
+					<th>Identifiant</th>
+					<th>Code interne</th>
+					<th>Début étape</th>
+					<th>Etape</th>
+					<th>Chaîne</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for prod in listeprodencours %}
+					<tr name='prod' id='{{ prod.codeInterne }}'>
+						<td>{{ prod.idtElement }}</td>
+						<td>{{ prod.codeInterne }}</td>
+						<td>{{ prod.dateDebut|date('d-m-Y H:i:s') }}</td>
+						<td>{{ prod.nomEtat }}</td>
+						<td>{{ prod.nomChaine }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+
+			<tfoot>
+			</tfoot>
+		</table>
+
+		<div id="detailsprod" data-path="{{ path('resultat_prod') }}">
+        </div>
+
+	</div>
+{% endblock %}

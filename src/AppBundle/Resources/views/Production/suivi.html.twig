@@ -1,0 +1,52 @@
+{# src/AppBundle/Resources/views/Production/suivi.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Production - Suivi
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/production-suivi.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{# Fil d'Ariane #}
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li><a href="{{ path('accueil_prod') }}">Production</a></li>
+        	<li class="active">Suivi Production</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Production:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Suivi de la production</h3>
+	
+		<div class="recherche">
+			<h4>Recherche</h4>
+
+			<form name="appbundle_prod" method="post" class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-1 control-label required" for="appbundle_prod_code">Code interne</label>
+
+			      	<div class="col-sm-2">
+			        	<input type="text" id="appbundle_prod_code" name="codeInterne" required="required" class="form-control">
+			      	</div>		    		
+
+			      	<div class="col-sm-1">
+			      		<button type="button" id="appbundle_prod_rechercher" name="btnrechercher" class="btn btn-primary unique-taille">Rechercher</button>
+			      	</div>
+			    </div>
+		    </form>
+		</div>
+
+		<div id="suivi" data-path="{{ path('resultat_prod') }}">
+		</div>
+
+	</div>
+{% endblock %}

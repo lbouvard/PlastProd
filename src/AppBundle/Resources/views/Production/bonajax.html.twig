@@ -1,0 +1,51 @@
+{# src/AppBundle/Resources/views/Production/bonajax.html.twig #}
+
+<div id="cadrebon">
+    <div class="infonomenclature">
+        <h6>Identifiant : <small>{{ idt }}</small></h6>
+        <h6>Code : <small>{{ code }}</small></h6>
+        <h6>Code interne : <small>{{ code_interne }}</small></h6>
+        <h6>Chaîne : <small>Chaîne 1</small></h6>
+    </div>
+
+    <div class="codebarre">
+        <h6><small>Commercial</small></h6>
+        <img src="{{ asset(cb_commercial) }}">
+        {#{ cb_commercial|raw }#}
+        <h6><small>Interne</small></h6>
+        <img src="{{ asset(cb_interne) }}">
+        {#{ cb_interne|raw }#}
+    </div>
+
+    <div class="matiere">
+        <h6>Matères premières :</h6>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Code produit</th>
+                    <th>Nom produit</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for nom in listenomenclature %}
+                    <tr>
+                        <td>{{ nom.codeProduit }}</td>
+        				<td>{{ nom.nomProduit }}</td>
+                        <td>{{ nom[0].quantite }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div id="bouton_droit">
+    <button type="submit" id="imprimernom" name="btnimprimer" class="btn btn-primary unique-taille">Imprimer</button>
+    <button type="submit" id="annulernom" name="btnannuler" class="btn btn-default unique-taille" data-path="{{ path('gerer_bon') }}">Annuler</button>
+</div>

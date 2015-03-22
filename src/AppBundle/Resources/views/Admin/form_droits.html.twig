@@ -1,0 +1,74 @@
+{# src/AppBundle/Resources/view/Admin/form_droits.html.twig #}
+
+<h3>Droits</h3>
+
+{% set tabroles = [] %}
+{% for role in utilisateur.roles %}
+	{% set tabroles = tabroles|merge([role.id]) %}
+{% endfor %}
+
+<div class="well">
+	<h4>Utilisateur : <small>{{ utilisateur.username }}</small></h4>
+	<br>
+
+	<form name="appbundle_droits" method="post" action="{{ path('form_droits', { 'id': utilisateur.id }) }}" class="form-horizontal">
+	
+	<h5>Droits rapide</h5>
+
+	{% for ligne in droits %}
+		{% if ligne.categorie == 'Utilisateur' %}
+	    <div class="form-group">
+	        <label class="col-sm-3 control-label required" for="appbundle_droits_{{ ligne.id }}">{{ ligne.nom }}</label>
+      		<div class="col-sm-4">
+      		{% if ligne.id in tabroles %}
+        		<input type="checkbox" id="appbundle_droits_{{ ligne.id }}" name="appbundle_droits[{{ ligne.id }}]" class="form-control" checked>
+      		{% else %}
+      			<input type="checkbox" id="appbundle_droits_{{ ligne.id }}" name="appbundle_droits[{{ ligne.id }}]" class="form-control">
+      		{% endif %}
+      		</div>
+    	</div>
+    	{% endif %}
+	{% endfor %}
+
+	<h5>Accès Web</h5>
+
+	{% for ligne in droits %}
+		{% if ligne.categorie == 'Accès' %}
+	    <div class="form-group">
+	        <label class="col-sm-3 control-label required" for="appbundle_droits_{{ ligne.id }}">{{ ligne.nom }}</label>
+      		<div class="col-sm-4">
+      		{% if ligne.id in tabroles %}
+        		<input type="checkbox" id="appbundle_droits_{{ ligne.id }}" name="appbundle_droits[{{ ligne.id }}]" class="form-control" checked>
+      		{% else %}
+      			<input type="checkbox" id="appbundle_droits_{{ ligne.id }}" name="appbundle_droits[{{ ligne.id }}]" class="form-control">
+      		{% endif %}
+      		</div>
+    	</div>
+    	{% endif %}
+	{% endfor %}
+
+	<h5>Configuration avancée</h5>
+
+	{% for ligne in droits %}
+		{% if ligne.categorie == 'Avancée' %}
+	    <div class="form-group">
+	        <label class="col-sm-3 control-label required" for="appbundle_droits_{{ ligne.id }}">{{ ligne.nom }}</label>
+      		<div class="col-sm-4">
+      		{% if ligne.id in tabroles %}
+        		<input type="checkbox" id="appbundle_droits_{{ ligne.id }}" name="appbundle_droits[{{ ligne.id }}]" class="form-control" checked>
+      		{% else %}
+      			<input type="checkbox" id="appbundle_droits_{{ ligne.id }}" name="appbundle_droits[{{ ligne.id }}]" class="form-control">
+      		{% endif %}
+      		</div>
+    	</div>
+    	{% endif %}
+	{% endfor %}
+
+		<br>
+
+	    <div id="submitform">
+	    	<button type="submit" id="appbundle_utilisateur_valider" name="btnvalider" class="btn btn-primary unique-taille">Valider</button>
+	        <button type="submit" id="appbundle_utilisateur_annuler" name="btnannuler" class="btn btn-default unique-taille">Annuler</button>
+	    </div>
+	</form>
+</div>

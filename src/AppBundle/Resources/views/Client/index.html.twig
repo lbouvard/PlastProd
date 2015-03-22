@@ -1,0 +1,65 @@
+{# src/AppBundle/Resources/views/Client/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Module client
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_client') }}">Client</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Client:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		
+		{% block titre %}
+			<h3>Accueil du module client</h3>
+		{% endblock %}
+
+		<div id="contactclient">
+			<h4>Vous</h4>
+			<address>
+				<strong>{{ contact.nomContact ~ ' ' ~ contact.prenomContact }}</strong><br>
+				{{ contact.adresse }}<br>
+				{{ contact.codePostal ~ ' ' ~ contact.ville|upper }}<br>
+				{{ contact.pays }}<br><br>
+				<abbr title="Numéro de téléphone fixe">Tel : </abbr>{{ contact.telFixe }}<br>
+				<abbr title="Numéro de téléphone portable">Mob : </abbr>{{ contact.telMobile }}<br>
+				<abbr title="Numéro de Fax">Fax : </abbr>{{ contact.fax }}<br><br>
+				<abbr title="Adresse de messagerie">@ : </abbr><a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+			</address>
+		</div>
+		<div id="contactclient">
+			<h4>Votre société</h4>
+			<address>
+				<strong>{{ contact.societe.nomSociete }}</strong><br>
+				{{ contact.societe.adresse1 }}<br>
+				{{ contact.societe.codePostal ~ ' ' ~ contact.societe.ville|upper }}<br>
+				{{ contact.societe.pays }}<br>
+			</address>
+		</div>
+		<div id="contactmere">
+			<h4>Nous</h4>
+			<address>
+				<strong>{{ societemere.nomSociete }}</strong><br>
+				{{ societemere.adresse1 }}<br>
+				{{ societemere.codePostal ~ ' ' ~ societemere.ville|upper }}<br>
+				{{ societemere.pays }}<br>
+			</address>
+			<h4>Votre interlocuteur</h4>
+			<address>
+				<strong>Dupond Jean</strong><br>
+				<abbr title="Numéro de téléphone fixe">Tel : </abbr>+33383256598<br>
+				<abbr title="Numéro de téléphone portable">Mob : </abbr>+33612356898<br><br>
+				<abbr title="Adresse de messagerie">@ : </abbr><a href="mailto:jean.dupond@plastprod.fr">jean.dupond@plastprod.fr</a>
+			</address>			
+		</div>
+
+	</div>
+{% endblock %}

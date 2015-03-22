@@ -1,0 +1,48 @@
+{# src/AppBundle/Resources/views/Admin/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Admin - Gérer droits
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/admin-gerer-compte.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li><a href="{{ path('accueil_admin') }}">Administration</a></li>
+        	<li class="active">Gérer droits</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Admin:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Sélection du compte</h3>
+
+		<div class="selection">
+			<select id="selsociete" class="form-control sel-largeur">
+		        <option value="-1" selected>Choisissez une société</option>
+		        {% for societe in listesociete %}
+		            <option value="{{ societe.idtSociete }}">{{ societe.nomSociete }}</option>
+		        {% endfor %}
+    		</select>
+		</div>
+
+		<div id="selcontact" class="selection" data-path="{{ path('selection_contact') }}">
+			<select id="selectcontact" class="form-control sel-largeur">
+    			<option value="-1" selected>--------</option>
+			</select>
+		</div>
+
+		<div id="formutilisateur" data-path="{{ path('form_droits') }}">
+		</div>
+
+	</div>
+{% endblock %}

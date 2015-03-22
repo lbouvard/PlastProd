@@ -1,0 +1,27 @@
+{# src/AppBundle/Resources/views/Admin/utilisateur.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Admin - Compte
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+            <li><a href="{{ path('accueil_admin') }}">Administration</a></li>
+            <li class="active">Compte</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+    {{ render(controller("AppBundle:Admin:menu")) }}
+{% endblock %}
+
+{% block body %}
+    <div id="cadrebody">
+        {% if type == 'compte' %}
+            {{ include('AppBundle:Admin:form_compte.html.twig', {'form': form, 'isdroit': true }) }}
+        {% elseif type =='droits' %}
+            {{ include('AppBundle:Admin:form_droits.html.twig', {'utilisateur': utilisateur, 'droits': droits}) }}
+        {% endif %}        
+    </div>
+{% endblock %}

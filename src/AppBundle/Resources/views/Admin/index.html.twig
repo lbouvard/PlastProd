@@ -1,0 +1,54 @@
+{# src/AppBundle/Resources/views/Admin/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Console administrateur
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_admin') }}">Administration</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Admin:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Administration</h3>
+
+		<table id="tabliste">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Adresse</th>
+					<th>Code postal</th>
+					<th>Ville</th>
+					<th>Pays</th>
+					<th>Commentaire</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for societe in listesociete %}
+					<tr name='societe' id='{{ societe.idtSociete }}'>
+						<td>{{ societe.nomSociete }}</td>
+						<td>{{ societe.adresse1 }}</td>
+						<td>{{ societe.codePostal }}</td>
+						<td>{{ societe.ville }}</td>
+						<td>{{ societe.pays }}</td>
+						<td>{{ societe.commentaire }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+
+			<tfoot>
+			</tfoot>
+		</table>
+
+		<div id="contacts" data-path="{{ path('societe_contact') }}">
+		</div>
+	</div>
+{% endblock %}

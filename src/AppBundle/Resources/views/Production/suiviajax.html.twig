@@ -1,0 +1,37 @@
+{# src/AppBundle/Resources/views/Production/suiviajax.html.twig #}
+<h3>Résultat</h3>
+
+<table id="tabliste">
+    <thead>
+        <tr>
+            <th>Code interne</th>
+            <th>Nomenclature</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Etat</th>
+			<th>Chaine</th>
+            <th>Défaut</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for prod in listeproduction %}
+            <tr name='prod' id='{{ prod[0].idtElement }}'>
+                <td>{{ prod[0].codeInterne }}</td>
+                <td>{{ prod["codeProduit"] }}
+                <td>{{ prod[0].dateDebut|date('d-m-Y H:i:s') }}</td>
+                {% if prod[0].dateFin is empty %}
+                    <td>{{ prod[0].dateModif is empty ? "-" : prod[0].dateModif|date('d-m-Y H:i:s') }}</td>
+                {% else %}
+                    <td>{{ prod[0].dateFin|date('d-m-Y H:i:s') }}</td>
+				{% endif %}
+                <td>{{ prod["nomEtat"] }}</td>
+                <td>{{ prod["nomChaine"] }}</td>
+                <td>{{ prod["nomRebu"] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    <tfoot>
+    </tfoot>
+</table>

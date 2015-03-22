@@ -1,0 +1,44 @@
+{# src/AppBundle/Resources/view/Admin/contact.html.twig #}
+
+<h3>Contacts</h3>
+
+<table id="tabliste">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Email</th>
+            <th>Numéro Fixe</th>
+            <th>Détails</th>
+            <th>Compte</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for ligne in listecontact %}
+            <tr>
+                <td>{{ ligne.nomContact }}</td>
+                <td>{{ ligne.prenomContact }}</td>
+                <td>{{ ligne.email }}</td>
+                <td>{{ ligne.telFixe }}</td>
+                <td>
+                    <a href="{{ path('contact_details', { 'id': ligne.idtContact }) }}">
+                        <img class="iconeaction" alt="Détails" src="{{ asset('images/loupe.png') }}">
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('gerer_droits', { 'id': ligne.idtContact }) }}">
+                        <img class="iconeaction" alt="Compte" src="{{ asset('images/preference.png') }}">
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    <tfoot>
+    </tfoot>
+</table>
+
+<div id="detailsDuContact">
+
+</div>

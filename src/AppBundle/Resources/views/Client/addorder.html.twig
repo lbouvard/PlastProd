@@ -1,0 +1,137 @@
+{# src/AppBundle/Resources/views/Client/addorder.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Module client - Ajout commande
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/client-ajout-commande.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+            <li><a href="{{ path('accueil_client') }}">Clients</a></li>
+            <li class="active"><a href="{{ path('ajouter_commande') }}">Ajout commande</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+    {{ render(controller("AppBundle:Client:menu")) }}
+{% endblock %}
+
+
+{% form_theme form 'AppBundle:Form:form_table_layout.html.twig' %}
+
+{% block body %}
+
+  <script type="text/javascript">
+    //conversion json des données passé en paramètres
+    var listeproduits = {{ jslisteproduits|json_encode(constant('JSON_PRETTY_PRINT'))|raw  }};
+  </script>
+
+  <div id="cadrebody">
+
+    {% block titre %}
+        <h3>Ajouter une commande</h3>
+    {% endblock %}  
+
+
+
+    <div>
+      <div class="well">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+          {# Les erreurs générales du formulaire. #}
+          {{ form_errors(form.client) }}
+          {{ form_errors(form.commercial) }}
+          {{ form_errors(form.produits) }}
+          {{ form_errors(form.commentaire) }}
+
+          <div id="orderclient">
+            {# Génération du label. #}
+            {{ form_label(form.client, "Client", {'label_attr': {'class': 'col-sm-1'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {# {{ form_errors(form.commentaire) }} #}
+            <div class="col-sm-1">
+              {# Génération de l'input. #}
+              {{ form_widget(form.client) }}
+            </div>       
+          </div>
+
+          <div id="ordercommercial">
+            {# Génération du label. #}
+            {{ form_label(form.commercial, "Commercial", {'label_attr': {'class': 'col-sm-1'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {# {{ form_errors(form.commentaire) }} #}
+            <div class="col-sm-1">
+              {# Génération de l'input. #}
+              {{ form_widget(form.commercial) }}
+            </div>       
+          </div>
+
+          <div id="ajoutprod">
+            <select id="choixproduit">
+              <option value=-1 selected="selected">Choisir le produit...</option>
+              {% for produit in listeproduits %}
+                <option value="{{ produit.idtProduit }}">{{ produit.nomProduit }}</option>
+              {% endfor %}
+            </select>
+
+          </div>  
+
+          <div>
+            <table id="tabliste">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantité</th>
+                        <th>Prix total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <td colspan="5">Total</td>
+                    <td id="totalcommande">0 €</td>
+                    <td><a href="{{ path('ajouter_commande') }}" class="btn btn-warning" onClick="">RAZ</a></td>
+                  </tr>
+                </tfoot>
+            </table>
+          </div>
+
+          {{ form_widget(form.produits) }}
+
+          <div id="ordercommentaire">
+            {# Génération du label. #}
+            {{ form_label(form.commentaire, "Commentaire", {'label_attr': {'class': 'col-sm-1'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {# {{ form_errors(form.commentaire) }} #}
+            <div class="col-sm-1">
+              {# Génération de l'input. #}
+              {{ form_widget(form.commentaire, {'attr' : {'rows' : '4', 'cols' : '50' }}) }}
+            </div>       
+          </div>
+     
+          <div id="submitform">
+            {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_widget(form.annuler, {'attr': {'class': 'btn btn-default'}}) }}
+          </div>
+          {# Génération automatique des champs pas encore écrits. #}
+          {{ form_rest(form) }}
+          
+          {# Fermeture de la balise <form> du formulaire HTML #}
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

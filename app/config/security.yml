@@ -1,0 +1,56 @@
+# you can read more about security in the related section of the documentation
+# http://symfony.com/doc/current/book/security.html
+security:
+    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
+    encoders:
+        AppBundle\Entity\Utilisateur: sha512
+
+    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
+    role_hierarchy:
+        ROLE_ADMIN:             [ROLE_SEDENTAIRE, ROLE_ITINERANT, ROLE_DIRECTION, ROLE_QUALITE, ROLE_COMMERCIAL, ROLE_GES_CLIENT, ROLE_GES_STOCK, ROLE_GES_PRODUCTION, ROLE_GES_CONFIG]
+        ROLE_DIRECTION:         [ROLE_LEC_CLIENT, ROLE_LEC_STOCK, ROLE_LEC_PRODUCTION]
+        ROLE_QUALITE:           [ROLE_LEC_CLIENT, ROLE_LEC_STOCK, ROLE_LEC_PRODUCTION]
+        ROLE_COMMERCIAL:        [ROLE_LEC_CLIENT, ROLE_GES_CLIENT]
+        ROLE_GES_STOCK:         [ROLE_LEC_STOCK]
+        ROLE_GES_CLIENT:        [ROLE_LEC_CLIENT]
+        ROLE_GES_PRODUCTION:    [ROLE_LEC_PRODUCTION]
+        ROLE_CLIENT:            [ROLE_LEC_CLIENT]
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        fournisseur:
+            entity: { class: AppBundle:Utilisateur }
+
+    # the main part of the security, where you can set up firewalls
+    # for specific sections of your app
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+    
+        login:
+            # Cette expression régulière permet de prendre /login (mais pas /login_check !)
+            pattern:   ^/(connexion|accueil)
+            anonymous: true
+
+        principal:
+            pattern:  ^/
+            anonymous: false
+            provider: fournisseur
+            form_login:
+                login_path: login
+                check_path: login_check
+            logout:
+                path: logout
+                target: /accueil
+            remember_me:
+                key:  "ghtdk7vhs"
+                lifetime: 2592000
+                path: /
+                domain: ~
+
+    # with these settings you can restrict or allow access for different parts
+    # of your application based on roles, ip, host or methods
+    # http://symfony.com/doc/current/cookbook/security/access_control.html
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }

@@ -1,0 +1,133 @@
+accueil:
+    path:     /accueil
+    defaults: { _controller: AppBundle:Platform:accueil }
+login:
+    pattern:  /connexion
+    defaults: { _controller: AppBundle:Platform:connexion }
+login_check:
+    pattern:  /login_check
+logout:
+    pattern:  /logout
+
+
+
+accueil_client:
+    path:     /client
+    defaults: { _controller: AppBundle:Client:accueil }
+commandes_client:
+    path:     /client/commandes
+    defaults: { _controller: AppBundle:Client:commande }
+commande_details:
+    path:     /client/commandes/details
+    defaults: { _controller: AppBundle:Client:commandeDetails }
+clients_client:
+    path:     /client/admin
+    defaults: { _controller: AppBundle:Client:client }
+ajouter_client:
+    path:     /client/admin/ajout
+    defaults: { _controller: AppBundle:Client:ajoutClient }
+ajouter_commande:
+    path:     /client/commandes/ajout
+    defaults: { _controller: AppBundle:Client:ajoutCommande }
+
+
+
+accueil_prod:
+    path:     /prod
+    defaults:  { _controller: AppBundle:Production:index }
+
+gerer_bon:
+    path:     /bon
+    defaults: { _controller: AppBundle:Production:bon }
+rendu_bon:
+    path:     /bon/rendu
+    defaults: { _controller: AppBundle:Production:rendu }
+
+gerer_rebut:
+    path:     /rebut
+    defaults: { _controller: AppBundle:Production:rebut }
+resultat_rebut:
+    path:     /rebut/resultat
+    defaults: { _controller: AppBundle:Production:resultat_rebut }
+rendu_bon_rebut:
+    path:     /rebut/resultat/bon
+    defaults: { _controller: AppBundle:Production:rendu_rebut }
+
+gerer_etiquette:
+    path:     /etiquette
+    defaults: { _controller: AppBundle:Production:etiquette }
+resultat_etiquette:
+    path:     /etiquette/resultat
+    defaults: { _controller: AppBundle:Production:resultat_etiquette }
+rendu_bon_etiquette:
+    path:     /etiquette/resultat/bon
+    defaults: { _controller: AppBundle:Production:rendu_etiquette }
+
+suivi_prod:
+    path:     /suivi
+    defaults: { _controller: AppBundle:Production:suivi }
+resultat_prod:
+    path:     /suivi/resultat
+    defaults: { _controller: AppBundle:Production:resultat }
+
+
+
+accueil_stock:
+    path:     /stock
+    defaults: { _controller: AppBundle:Stock:index }
+gerer_stock:
+    path:     /stock
+    defaults: { _controller: AppBundle:Stock:stock }
+modifier_stock:
+    path:     /modifstock
+    defaults: { _controller: AppBundle:Stock:modif }
+modifier_fourn:
+    path:     /fournisseur
+    defaults: { _controller: AppBundle:Stock:fournisseur }
+
+
+
+accueil_admin:
+    path:     /admin
+    defaults: { _controller: AppBundle:Admin:index }
+societe_contact:
+    path:     /admin/contact
+    defaults: { _controller: AppBundle:Admin:contact }
+contact_details:
+    path:     /admin/contact/{id}
+    defaults: { _controller: AppBundle:Admin:details }
+    requirements:
+        id: \d*
+ajouter_contact:
+    path:     /admin/contact/ajout
+    defaults: { _controller: AppBundle:Admin:ajoutContact }
+
+gerer_compte:
+    path:     /admin/compte
+    defaults: { _controller: AppBundle:Admin:compte }
+gerer_droits:
+    path:     /admin/droits
+    defaults: { _controller: AppBundle:Admin:droits }
+
+form_compte:
+    path:     /admin/compteform/{id}
+    defaults: { _controller: AppBundle:Admin:form_compte, id: -1 }
+    requirements:
+        id: \d*
+form_droits:
+    path:     /admin/droitsform/{id}
+    defaults: { _controller: AppBundle:Admin:form_droits, id: -1 }
+    requirements:
+        id: \d*
+
+utilisateur:
+    path:     /admin/{type}/{id}
+    defaults: { _controller: AppBundle:Admin:utilisateur }
+    requirements:
+        id: \d*
+        type: compte|droits
+
+selection_contact:
+    path:     /admin/selection/contact
+    defaults: { _controller: AppBundle:Admin:selcontact }
+

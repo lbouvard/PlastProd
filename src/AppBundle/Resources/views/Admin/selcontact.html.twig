@@ -1,0 +1,8 @@
+{# src/AppBundle/Resources/view/Admin/selcontact.html.twig #}
+
+<select id="selectcontact" class="form-control sel-largeur">
+    <option value="-1" selected>Choisissez un contact</option>
+    {% for contact in listecontact %}
+        <option value="{{ contact.utilisateur.id }}">{{ contact.nomContact ~ ' ' ~ contact.prenomContact }}</option>
+    {% endfor %}
+</select>

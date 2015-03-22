@@ -1,0 +1,56 @@
+{# src/AppBundle/Resources/views/Production/bon.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Production - Bon à tirer
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/production-bon.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{# Fil d'Ariane #}
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li><a href="{{ path('accueil_prod') }}">Production</a></li>
+        	<li class="active">Bon à tirer</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Production:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Bon à tirer</h3>
+
+		<div class="nomenclature">
+			<h4>Nomenclature</h4>
+
+			<form name="appbundle_prod_bon" method="post" class="form-horizontal">
+				<div class="form-group">
+			      	<div class="col-sm-3">
+			      		<select id="selnomenclature" class="form-control">
+					        <option value="-1" selected>Choisissez une nomenclature</option>
+					        {% for nom in listeproduit %}
+					            <option value="{{ nom.idtProduit }}">{{ nom.codeProduit }}</option>
+					        {% endfor %}
+    					</select>
+			      	</div>		    		
+
+			      	<div class="col-sm-1">
+			      		<button type="button" id="appbundle_prod_bontirer" name="btnvalider" class="btn btn-primary unique-taille">Valider</button>
+			      	</div>
+			    </div>
+		    </form>
+		</div>
+
+		<div id="bonatirer" data-path="{{ path('rendu_bon') }}">
+		</div>
+
+	</div>
+{% endblock %}
+

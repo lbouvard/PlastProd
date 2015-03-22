@@ -1,0 +1,22 @@
+{# src/AppBundle/Resources/views/Stock/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Module stock
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_stock') }}">Stock</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h1>Module Stock</h1>
+	</div>
+{% endblock %}

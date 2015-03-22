@@ -1,0 +1,62 @@
+{% use "form_div_layout.html.twig" %}
+
+{%- block form_row -%}
+    <td>
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </td>
+{%- endblock form_row -%}
+
+{%- block button_row -%}
+    <tr>
+        <td></td>
+        <td>
+            {{- form_widget(form) -}}
+        </td>
+    </tr>
+{%- endblock button_row -%}
+
+{%- block hidden_row -%}
+    <tr style="display: none">
+        <td colspan="2">
+            {{- form_widget(form) -}}
+        </td>
+    </tr>
+{%- endblock hidden_row -%}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+
+    {# {%- if type == 'text' -%}
+        <label {{ block('widget_attributes') }} /> 
+    {%- else -%} #}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {# {%- endif -%} #}
+{%- endblock form_widget_simple -%}
+
+{%- block form_widget_compound -%}
+    <table {{ block('widget_container_attributes') }}>
+        {%- if form.parent is empty and errors|length > 0 -%}
+        <tr>
+            <td colspan="2">
+                {{- form_errors(form) -}}
+            </td>
+        </tr>
+        {%- endif -%}
+        {{- block('form_rows') -}}
+        {{- form_rest(form) -}}
+    </table>
+{%- endblock form_widget_compound -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        {%- for error in errors -%}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ error.cause.invalidValue ~ " : " ~ error.message }}
+            </div>
+        {%- endfor -%}
+    {%- endif -%}
+{%- endblock form_errors -%}

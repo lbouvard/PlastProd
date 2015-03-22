@@ -1,0 +1,137 @@
+{# src/AppBundle/Resources/views/Client/addclient.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Module client - Ajout client
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+            <li><a href="{{ path('accueil_client') }}">Client</a></li>
+            <li class="active"><a href="{{ path('ajouter_client') }}">Ajout client</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+    {{ render(controller("AppBundle:Client:menu")) }}
+{% endblock %}
+
+{% block body %}
+    <div id="cadrebody">
+
+        {% block titre %}
+            <h3>Ajouter un client</h3>
+        {% endblock %}
+
+	    <div class="well">
+	      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+	      	{{ form_errors(form) }}
+
+		    <div class="form-group">
+
+		      {{ form_label(form.nomSociete, "Nom de la société", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.nomSociete) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.nomSociete, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.adresse1, "Adresse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.adresse1) }}
+
+		      <div class="col-sm-4">
+		        {{ form_widget(form.adresse1, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.adresse2, "Complément adresse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.adresse2) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.adresse2, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>	
+
+		    <div class="form-group">
+
+		      {{ form_label(form.codePostal, "Code postal", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.codePostal) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.ville, "Ville", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.ville) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.pays, "Pays", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.pays) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.typeSociete, "Type", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.typeSociete) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.typeSociete, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.commentaire, "Commentaires", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.commentaire) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div id="submitform">
+		    	{{ form_widget(form.Valider, {'attr': {'class': 'btn btn-primary'}}) }}
+		        {{ form_widget(form.Annuler, {'attr': {'class': 'btn btn-default'}}) }}
+		    </div>
+
+		 	{{ form_rest(form) }}
+	  
+	  	  {# Fermeture de la balise <form> du formulaire HTML #}
+	  	  {{ form_end(form) }}
+	    </div>
+	</div>
+{% endblock %}

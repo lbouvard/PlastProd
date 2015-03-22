@@ -1,0 +1,48 @@
+{# src/AppBundle/Resources/views/Platform/connexion.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Se connecter
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil') }}">Accueil</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Platform:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Identifiez-vous</h3>
+
+			{% if error %}
+				<div class="alert alert-danger">{{ error.message|trans({}, 'messages') }}</div>
+			{% endif %}
+
+			<form id="formconnexion" action="{{ path('login_check') }}" method="post">
+				<div class="form-group">
+					<label for="username">Nom d'utilisateur</label>
+					<input class="form-control" type="username" id="username" name="_username" value="{{ last_username }}" />
+				</div>
+
+				<div class="form-group">
+					<label for="password">Mot de passe</label>
+					<input class="form-control" type="password" id="password" name="_password" />
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="remember_me" name="_remember_me"> Se souvenir de moi
+					</label>
+				</div>
+
+				<div id="submitform">
+					<button type="submit" class="btn btn-primary" type="submit">Se connecter</button>
+					<button type="reset" class="btn btn-default" data-dismiss="modal">Annuler</button>
+				</div>
+			</form>
+	</div>
+{% endblock %}
