@@ -18,16 +18,30 @@ class LoadProduction extends AbstractFixture implements OrderedFixtureInterface
   {
     // Liste des noms de catégorie à ajouter
     $valeur = array(
-      array('RE1520820150210', new \DateTime('2015-02-11 07:25:10'), null, 0, 0, null, 0, 1, 3, 1, 0),
-      array('RE1520820150210', new \DateTime('2015-02-10 07:25:10'), new \DateTime('2015-02-10 14:26:15'), 0, 1, null, 0, 1, 1, 6, 0),
-      array('RE1520820150210', new \DateTime('2015-02-11 06:25:00'), null, 0, 0, null, 0, 1, 0, 0, 0),
-      array('RE1520820150210', new \DateTime('2015-02-11 06:25:00'), null, 1, 0, new \DateTime('2015-02-11 07:02:00'), 1, 1, 2, 3, 1),
-      array('RE1520820150210', new \DateTime('2015-02-11 06:25:10'), new \DateTime('2015-02-11 07:10:55'), 1, 1, null, 0, 1, 4, 6, 2),
-      array('PE1454220150124', new \DateTime('2015-01-25 06:00:41'), null, 0, 0, null, 0, 2, 3, 1, 0),
-      array('PE1454220150124', new \DateTime('2015-01-25 06:00:41'), null, 0, 0, new \DateTime('2015-01-25 08:25:12'), 1, 2, 0, 2, 0),
-      array('PE1454220150124', new \DateTime('2015-01-25 06:00:41'), new \DateTime('2015-01-25 12:20:45'), 0, 1, new \DateTime('2015-01-25 12:20:46'), 1, 2, 0, 6, 0),
-      array('FD1363320150217', new \DateTime('2015-01-18 08:25:00'), null, 0, 0, null, 0, 3, 0, 0, 0)
+        array('RE1520820150323083014', new \DateTime('2015-03-23 13:26:03.000000'), new \DateTime('2015-03-23 13:41:03.000000'), 0, 1, null, 0, 2, 2, 7, null),
+        array('RE1520820150323083014', new \DateTime('2015-03-23 09:01:45.000000'), null, 0, 0, new \DateTime('2015-03-23 10:05:30.000000'), 1, 2, 2, 1, null),
+        array('RE1520820150323083014', new \DateTime('2015-03-23 10:07:30.000000'), null, 0, 0, new \DateTime('2015-03-23 11:02:10.000000'), 1, 2, 2, 2, null),
+        array('RE1520820150323083014', new \DateTime('2015-03-23 11:09:10.000000'), null, 0, 0, new \DateTime('2015-03-23 12:14:18.000000'), 1, 2, 2, 3, null),
+        array('RE1520820150323083014', new \DateTime('2015-03-23 12:17:18.000000'), null, 0, 0, new \DateTime('2015-03-23 13:01:37.000000'), 1, 2, 2, 4, null),
+        array('RE1520820150323083014', new \DateTime('2015-03-23 13:04:37.000000'), null, 0, 0, new \DateTime('2015-03-23 13:26:03.000000'), 1, 2, 2, 6, null),
+        array('PE1454220150320124510', new \DateTime('2015-03-20 13:32:47.000000'), new \DateTime('2015-03-20 13:40:48.000000'), 1, 1, null, 0, 3, 3, 5, 2),
+        array('PE1454220150320124510', new \DateTime('2015-03-20 12:50:41.000000'), null, 0, 0, new \DateTime('2015-03-20 13:20:46.000000'), 1, 3, 3, 1, null),
+        array('PE1454220150320124510', new \DateTime('2015-03-20 13:24:46.000000'), null, 0, 0, new \DateTime('2015-03-20 13:31:12.000000'), 1, 3, 3, 2, null),
+        array('PE1454220150323174510', new \DateTime('2015-03-23 20:17:48.000000'), null, 0, 0, null, 0, 3, 3, 3, null),
+        array('PE1454220150323174510', new \DateTime('2015-03-23 18:01:22.000000'), null, 0, 0, new \DateTime('2015-03-23 19:05:19.000000'), 1, 3, 3, 1, null),
+        array('PE1454220150323174510', new \DateTime('2015-03-23 19:06:19.000000'), null, 0, 0, new \DateTime('2015-03-23 20:15:48.000000'), 1, 3, 3, 2, null),
+        array('RE1520820150323181533', new \DateTime('2015-03-23 22:30:58.000000'), null, 0, 0, null, 0, 2, 2, 6, null),
+        array('RE1520820150323181533', new \DateTime('2015-03-23 18:26:47.000000'), null, 0, 0, new \DateTime('2015-03-23 19:15:32.000000'), 1, 2, 2, 1, null),
+        array('RE1520820150323181533', new \DateTime('2015-03-23 19:20:14.000000'), null, 0, 0, new \DateTime('2015-03-23 20:25:47.000000'), 1, 2, 2, 2, null),
+        array('RE1520820150323181533', new \DateTime('2015-03-23 20:28:01.000000'), null, 0, 0, new \DateTime('2015-03-23 21:30:10.000000'), 1, 2, 2, 3, null),
+        array('RE1520820150323181533', new \DateTime('2015-03-23 21:35:06.000000'), null, 0, 0, new \DateTime('2015-03-23 22:26:37.000000'), 1, 2, 2, 4, null),
+        array('FD1363320150323191025', new \DateTime('2015-03-23 21:12:47.000000'), null, 1, 0, null, 0, 4, 4, 5, 1),
+        array('FD1363320150323191025', new \DateTime('2015-03-23 19:15:10.000000'), null, 0, 0, new \DateTime('2015-03-23 19:41:24.000000'), 1, 4, 4, 1, null),
+        array('FD1363320150323191025', new \DateTime('2015-03-23 19:45:21.000000'), null, 0, 0, new \DateTime('2015-03-23 20:36:41.000000'), 1, 4, 4, 3, null),
+        array('FD1363320150323191025', new \DateTime('2015-03-23 20:40:13.000000'), null, 0, 0, new \DateTime('2015-03-23 21:10:45.000000'), 1, 4, 4, 3, null)
     );
+
+
 
     foreach ($valeur as $ligne) {
 
@@ -42,21 +56,13 @@ class LoadProduction extends AbstractFixture implements OrderedFixtureInterface
       $production->setDateModif($ligne[5]);
       $production->setBitModif($ligne[6]);
       $production->setProduit($this->getReference('produit_'.$ligne[7]));
+      $production->setChaine($this->getReference('chaine_'.$ligne[8]));
+      $production->setEtat($this->getReference('etat_'.$ligne[9]));
 
-      if( $ligne[8] > 0 )
-        $production->setChaine($this->getReference('chaine_'.$ligne[8]));
-      else
-        $production->setChaine();
-
-      if( $ligne[9] > 0 )  
-        $production->setEtat($this->getReference('etat_'.$ligne[9]));
-      else
-        $production->setEtat();
-      
-      if( $ligne[10] > 0 )
+      if( $ligne[10] != null )
         $production->setCauseRebu($this->getReference('rebu_'.$ligne[10]));
       else
-        $production->setCauseRebu();
+        $production->setCauseRebu(null);
   
       // On la persiste
       $manager->persist($production);

@@ -14,7 +14,10 @@ class LoadCommande extends AbstractFixture implements OrderedFixtureInterface
   public function load(ObjectManager $manager)
   {
     // Liste des noms de catégorie à ajouter
-    $valeur = array();
+    $valeur = array(
+          array( new \DateTime('2015-03-17 18:59:05'), 'Commentaire', 1, 5),
+          array( new \DateTime('2015-03-17 19:38:52'), null, 3, 7)
+    );
 
     $i = 1;
     
@@ -23,15 +26,10 @@ class LoadCommande extends AbstractFixture implements OrderedFixtureInterface
       // On crée la société
       $commande = new Commande();
   
-      $commande->setMontant($ligne[0]);
-      $commande->setDateCommande($ligne[1]);
-      $commande->setEtatCommande($ligne[2]);
-      $commande->setCommentaire($ligne[3]);
-      $commande->setDateChg($ligne[4]);
-      $commande->setBitChg($ligne[5]);
-      $commande->setBitSup($ligne[6]);
-      $commande->setCommercial($this->getReference('contact_'.$ligne[7]));
-      $commande->setClient($this->getReference('societe_'.$ligne[8])); 
+      $commande->setDateCommande($ligne[0]);
+      $commande->setCommentaire($ligne[1]);
+      $commande->setCommercial($this->getReference('contact_'.$ligne[2]));
+      $commande->setClient($this->getReference('societe_'.$ligne[3])); 
 
       // On la persiste
       $manager->persist($commande);
@@ -45,7 +43,7 @@ class LoadCommande extends AbstractFixture implements OrderedFixtureInterface
 
   public function getOrder()
   {
-    return 5; // l'ordre dans lequel les fichiers sont chargés
+    return 8; // l'ordre dans lequel les fichiers sont chargés
   }
 
 }

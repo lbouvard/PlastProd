@@ -8,39 +8,30 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use \AppBundle\Entity\Produits;
-use \AppBundle\Entity\Stock;
-use \AppBundle\Entity\Societe;
+use AppBundle\Entity\Produits;
+use AppBundle\Entity\Stock;
+use AppBundle\Entity\Societe;
+use AppBundle\Form\SocieteType;
 
 class StockController extends Controller
 {
-    public function indexAction()
-    {
-    	return $this->render('AppBundle:Stock:index.html.twig');
+    public function indexAction(){
+
+    	$repository = $this
+			->getDoctrine()
+			->getManager()
+			->getRepository('AppBundle:Stock');
+
+		$listestock = $repository->getListeStock();
+
+    	return $this->render('AppBundle:Stock:index.html.twig', array('listestock' => $listestock));
     }
 
     public function menuAction(Request $request)
     {
 	    return $this->render('AppBundle:Stock:menu.html.twig');
     }
-	public function afficher_stockAction()
-	{
-		/*$repository = $this
-			->getDoctrine()
-			->getManager()
-			->getRepository('AppBundle:Produits');
-		
-		$listestock = $repository->findAll();
-		*/
-		$listestock=$this->getDoctrine()->getEntityManager()->createQueryBuilder()
-                ->add('from','AppBundle:Stock s')
-                ->select('s')
-                ->leftJoin('s.produit','p')
-				->addSelect("p")
-                ->getQuery()->getResult();
-		
-		return $this->render('AppBundle:Stock:index.html.twig', array('Liste_stock' => $listestock));
-	}
+
 	public function fournisseurAction(){
 		
 		$repository = $this
@@ -48,74 +39,64 @@ class StockController extends Controller
 			->getManager()
 			->getRepository('AppBundle:Societe');
 		
-		$listefourn = $repository->findAll();
+		$listefournisseur = $repository->getListeFournisseur();
 		
-		return $this->render('AppBundle:Stock:fournisseur.html.twig', array('Liste_fourn' => $listefourn));
+		return $this->render('AppBundle:Stock:fournisseur.html.twig', array('listefournisseur' => $listefournisseur) );
 	}
-	public function modiffournisseurAction($id){
-		$fourns = $this
-					->getDoctrine()
-					->getManager()
-					->getRepository('AppBundle:Societe')->findBy(array("idtSociete"=>$id));
-					
-				$fourn = $fourns[0];
-				$form = $this->createFormBuilder($fourn)
-                        ->add('nomSociete', 'text',array("label"=>"Nom"))
-						->add('adresse1','text',array("label"=>"Adresse 1"))
-						->add('adresse2','text',array("label"=>"Adresse 2","required"=>false))
-						->add('codePostal','text',array("label"=>"Code Postal","max_length"=>5))
-						->add('ville','text',array("label"=>"Ville"))
-						->add('pays','text',array("label"=>"pays"))
-						->add('typeSociete','choice',
-								array("label"=>"Type",
-										"empty_data"=>0,
-										"multiple"=>false,
-										'choices' => array("F"=>"F","M"=>"M","C"=>"C"))
-								)
-						->add('commentaire','textarea',array("label"=>"Commentaire","required"=>false))
-						->getForm();
-					$request = $this->getRequest();
-					
-            if ($request->getMethod() == 'POST') {
-                $form->bind($request);
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
 
-                return $this->redirect($this->generateUrl('modifier_fourn'));
-            }
-			return $this->render('AppBundle:Stock:modif_fourn.html.twig', array('form' => $form->createView(),"fourn"=>$fourn));
-	}
-	public function ajout_fournAction(){
-		$fourn =new Societe();
-					
-					$form = $this->createFormBuilder($fourn)
-                        ->add('nomSociete', 'text',array("label"=>"Nom"))
-						->add('adresse1','text',array("label"=>"Adresse 1"))
-						->add('adresse2','text',array("label"=>"Adresse 2","required"=>false))
-						->add('codePostal','text',array("label"=>"Code Postal","max_length"=>5))
-						->add('ville','text',array("label"=>"Ville"))
-						->add('pays','text',array("label"=>"pays"))
-						->add('typeSociete','choice',
-								array("label"=>"Type",
-										"empty_data"=>0,
-										"multiple"=>false,
-										'choices' => array("F"=>"F","M"=>"M","C"=>"C"))
-								)
-						->add('commentaire','textarea',array("label"=>"Commentaire","required"=>false))
-						->getForm();
-					$request = $this->getRequest();
-					
-            if ($request->getMethod() == 'POST') {
-                $form->bind($request);
-                $em = $this->getDoctrine()->getManager();
-				$em -> persist($fourn);
-                $em->flush();
+	public function ajoutFournisseurAction(Request $request){
 
-                return $this->redirect($this->generateUrl('modifier_fourn'));
-            }
-			return $this->render('AppBundle:Stock:ajout_fourn.html.twig', array('form' => $form->createView()));
+        $fournisseur = new Societe('F');
+
+        $form = $this->createForm(new SocieteType(), $fournisseur);
+
+        if ($form->handleRequest($request)->isValid()) {
+
+        	$em = $this->getDoctrine()->getManager();
+        	$em->persist($fournisseur);
+        	$em->flush();
+
+        	$request->getSession()->getFlashBag()->add('notice', 'Le fournisseur a été créé avec succès.');
+
+          	// On redirige vers la page de visualisation de l'annonce nouvellement créée
+          	return $this->redirect($this->generateUrl('gerer_fournisseur'));
+        }
+
+        return $this->render('AppBundle:Stock:addfournisseur.html.twig', array(
+          	'form' => $form->createView(),
+        ));
 	}
-	public function ajoutstockAction(){
+
+	public function modifieFournisseurAction($id, Request $request){
+
+    	$repository = $this
+			->getDoctrine()
+			->getManager()
+			->getRepository('AppBundle:Societe');
+        
+        $fournisseur = $repository->getSocieteParId($id);
+
+        $form = $this->createForm(new SocieteType(), $fournisseur);
+
+        if ($form->handleRequest($request)->isValid()) {
+
+        	$em = $this->getDoctrine()->getManager();
+        	$em->persist($fournisseur);
+        	$em->flush();
+
+        	$request->getSession()->getFlashBag()->add('notice', 'Le fournisseur a été modifié avec succès.');
+
+          	// On redirige vers la page de visualisation de l'annonce nouvellement créée
+          	return $this->redirect($this->generateUrl('gerer_fournisseur'));
+        }
+
+        return $this->render('AppBundle:Stock:modifiefournisseur.html.twig', array(
+          	'form' => $form->createView(),
+        ));
+	}
+
+
+	public function ajoutStockAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 
 		$formajout = $this->createFormBuilder( new Produits())
@@ -147,7 +128,7 @@ class StockController extends Controller
 				
 		return $this->render('AppBundle:Stock:ajoutstock.html.twig', array('formajout' => $formajout->createView()));
 	}
-	public function modif_stockAction(){
+	public function modifieStockAction(){
 		$listestock=$this->getDoctrine()->getEntityManager()->createQueryBuilder()
                 ->add('from','AppBundle:Stock s')
                 ->select('s')

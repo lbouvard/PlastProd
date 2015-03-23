@@ -1,24 +1,24 @@
-{# src/AppBundle/Resources/views/Client/addclient.html.twig #}
+{# src/AppBundle/Resources/views/Stock/modifiefournisseur.html.twig #}
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Client - Ajout client
+    {{ parent() }} - Stock - Modifier fournisseur
 {% endblock %}
 
 {% block breadcrumb %}
         <ol class="breadcrumb">
-            <li><a href="{{ path('accueil_client') }}">Client</a></li>
-            <li class="active">Ajout client</li>
+        	<li><a href="{{ path('accueil_stock') }}">Stock</a></li>
+			<li class="active">Modifier fournisseur</li>
         </ol>
 {% endblock %}
 
 {% block menu %}
-    {{ render(controller("AppBundle:Client:menu")) }}
+	{{ render(controller("AppBundle:Stock:menu")) }}
 {% endblock %}
 
 {% block body %}
-    <div id="cadrebody">
-        <h3>Ajouter un client</h3>
+	<div id="cadrebody">
+		<h3>Modifier fournisseur</h3>
 
 	    <div class="well">
 	      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}

@@ -15,10 +15,9 @@ class LoadListeCauseRebu extends AbstractFixture implements OrderedFixtureInterf
   {
     // Liste des noms de catégorie à ajouter
     $valeur = array(
-      array('PoidsHS', 'Le poids n\'est pas conforme aux normes'),
-      array('EpaisseurHS', 'Epaisseur du plastique incorrecte'),
-      array('AssemblageHS', 'Mauvais assemblage'),
-      array('PercageHS', 'Percage non conforme aux plans')
+      array('Val1HS', 'Valeur 1 non conforme'),
+      array('Val2HS', 'Valeur 2 non conforme'),
+      array('Val3HS', 'Valeur 3 non conforme')
     );
 
     $i = 1;
@@ -28,7 +27,7 @@ class LoadListeCauseRebu extends AbstractFixture implements OrderedFixtureInterf
       // On crée la société
       $liste = new ListeCauseRebu();
   
-      $liste->setLibelle($ligne[0]);
+      $liste->setNomRebu($ligne[0]);
       $liste->setDescription($ligne[1]);
   
       // On la persiste
@@ -43,6 +42,6 @@ class LoadListeCauseRebu extends AbstractFixture implements OrderedFixtureInterf
 
   public function getOrder()
   {
-    return 6; // l'ordre dans lequel les fichiers sont chargés
+    return 1; // l'ordre dans lequel les fichiers sont chargés
   }
 }

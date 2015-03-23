@@ -22,10 +22,22 @@ class SocieteRepository extends EntityRepository
 
 	public function getListeFournisseur()
 	{
-	  return $this
-	    ->createQueryBuilder('s')
-	    ->where('s.typeSociete = :type')
-	    ->setParameters(array('type'=> 'F'));		
+		$qb = $this->createQueryBuilder('s')
+	    	->where('s.typeSociete = :type')
+	    	->setParameters(array('type'=> 'F'));
+
+	    return $qb->getQuery()
+	    	->getResult();		
+	}
+
+	public function getSocieteParId($id)
+	{
+		$qb = $this->createQueryBuilder('s')
+			->where('s.idtSociete = :id')
+			->setParameters(array('id' => $id));
+
+		return $qb->getQuery()
+			->getSingleResult();
 	}
 
 	public function getSocieteMere()

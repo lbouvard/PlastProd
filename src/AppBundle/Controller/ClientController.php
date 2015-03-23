@@ -197,8 +197,8 @@ class ClientController extends Controller
 
     public function ajoutClientAction(Request $request)
     {
-        // On crée un objet commande
-        $client = new Societe();
+        // On crée un objet société
+        $client = new Societe('C');
 
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createForm(new SocieteType(), $client);

@@ -53,6 +53,8 @@ class LoadContact extends AbstractFixture implements OrderedFixtureInterface
       // On la persiste
       $manager->persist($contact);
 
+      $this->setReference('contact_'.$i++, $contact);
+
     }
 
     // On déclenche l'enregistrement de toutes les catégories
@@ -61,6 +63,6 @@ class LoadContact extends AbstractFixture implements OrderedFixtureInterface
 
   public function getOrder()
   {
-    return 3; // l'ordre dans lequel les fichiers sont chargés
+    return 7; // l'ordre dans lequel les fichiers sont chargés
   }
 }

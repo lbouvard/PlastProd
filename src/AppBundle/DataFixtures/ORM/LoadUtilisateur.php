@@ -19,14 +19,14 @@ class LoadUtilisateur extends AbstractFixture implements OrderedFixtureInterface
 
     // Liste des noms de catégorie à ajouter
     $valeur = array(
-      array('Antoine Auguste', '1234', 'antoine.auguste@valeo.com', null, 0, 0),
-      array('Bouvard Laurent', 'admin1234', 'laurent.bouvard@plastprod.fr', null, 0, 0),
-      array('Convenant Claude', '1234', 'convenant.claude@boite3.fr', null, 0, 0),
-      array('Dupond Jean', 'com1234', 'jean.dupond@plasprod.fr', null, 0, 0),
-      array('Kruger Gerald', '1234', 'kruger.gerald@plasticlux.lu', null, 0, 0),
-      array('Lemoine Alain', '1234', 'alain.lemoine@ideal.fr', null, 0, 0),
-      array('Morandi Pierre', '1234', 'pierre.morandi@ideal.fr', null, 0, 0),
-      array('Muller Yvan', '1234', 'muller.yvan@border.fr', null, 0, 0)
+      array('antoine.auguste', '1234', 'antoine.auguste@valeo.com'),
+      array('bouvard.laurent', '6!E#zx3V', 'laurent.bouvard@plastprod.fr', '4991665200d3f7111b880dcd62d821d4'),
+      array('convenant.claude', '1234', 'convenant.claude@boite3.fr'),
+      array('dupond.jean', 'com1234', 'jean.dupond@plasprod.fr'),
+      array('kruger.gerald', '1234', 'kruger.gerald@plasticlux.lu'),
+      array('lemoine.alain', '1234', 'alain.lemoine@ideal.fr'),
+      array('morandi.pierre', '1234', 'pierre.morandi@ideal.fr'),
+      array('muller.yvan', '1234', 'muller.yvan@border.fr')
     );
 
     $i = 1;
@@ -37,12 +37,21 @@ class LoadUtilisateur extends AbstractFixture implements OrderedFixtureInterface
       $user = new Utilisateur();
   
       $user->setUserName($ligne[0]);
-      $user->setPassword( $encoder->encodePassword($ligne[1], $user->getSalt()) );
+      if( isset($ligne[3]) )
+      {
+        $user->setPassword( $encoder->encodePassword($ligne[1], $ligne[3]) );
+        //role admin
+        $user->addRole($this->getReference('role_9') );
+      }
+      else
+      {
+        $user->setPassword( $encoder->encodePassword($ligne[1], $user->getSalt()) );
+        //role client
+        $user->addRole($this->getReference('role_13') );
+      }
+
       $user->setEmail($ligne[2]);
-      $user->setDateModif($ligne[3]);
-      $user->setBitModif($ligne[4]);
-      $user->setBitSup($ligne[5]);
-  
+
       // On la persiste
       $manager->persist($user);
 
@@ -55,7 +64,7 @@ class LoadUtilisateur extends AbstractFixture implements OrderedFixtureInterface
 
   public function getOrder()
   {
-    return 2; // l'ordre dans lequel les fichiers sont chargés
+    return 6; // l'ordre dans lequel les fichiers sont chargés
   }
 
 }

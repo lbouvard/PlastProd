@@ -18,34 +18,37 @@
 
 {% block body %}
 	<div id="cadrebody">
-		<h1>Fournisseurs</h1>
-		<table>
+		<h3>Fournisseurs</h3>
+
+		<table id="tabliste">
 			<thead>
 				<tr>
-					<th>Nom </th>
+					<th>Nom</th>
 					<th>Adresse</th>
 					<th>CP</th>
 					<th>Ville</th>
 					<th>Pays</th>
-					<th>Type</th>
 					<th>Commentaire</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for fourn in Liste_fourn %}
+				{% for fournisseur in listefournisseur %}
 					<tr>
-						<th>{{ fourn.nomSociete }}</th>
-						<th>{{ fourn.adresse1 }} {{ fourn.adresse2 }}</th>
-						<th>{{ fourn.codePostal }}</th>
-						<th>{{ fourn.ville }}</th>	
-						<th>{{ fourn.pays }}</th>	
-						<th>{{ fourn.typeSociete }}</th>	
-						<th>{{ fourn.commentaire }}</th>
-						<th><a href="{{path("page_modifier_fourn",{id:fourn.idtSociete})}}">Modifier</a></th>
+						<td>{{ fournisseur.nomSociete }}</td>
+						<td>{{ fournisseur.adresse1 }}</td>
+						<td>{{ fournisseur.codePostal }}</td>
+						<td>{{ fournisseur.ville }}</td>	
+						<td>{{ fournisseur.pays }}</td>	
+						<td>{{ fournisseur.commentaire }}</td>
+						<td><a class="btn btn-success" title="Modifier le fournisseur {{ fournisseur.nomSociete }}" href="{{ path('modifier_fournisseur', { id: fournisseur.idtSociete }) }}">Modifier</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
-		<a href="{{path("ajouter_fourn")}}">Ajouter un fournisseur</a>
+
+		<button id="btnajoutfournisseur" class="boutonGoogle" data-path="{{ path('ajouter_fournisseur') }}" title="Ajouter un fournisseur">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+
 {% endblock %}

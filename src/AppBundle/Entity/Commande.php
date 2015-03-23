@@ -87,7 +87,7 @@ class Commande
     {
         $this->dateCommande = new \datetime();
         $this->etatCommande = "Validée";
-        $this->commentaire = "";
+        $this->commentaire = null;
         $this->dateChg = null;
         $this->bitChg = 0;
         $this->bitSup = 0;

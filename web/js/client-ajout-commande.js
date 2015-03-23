@@ -93,7 +93,7 @@ $(document).ready(function() {
       // si quantité inférieur à 1 on force à 1
       if( this.value < 1 )
       {
-        //this.value = 1;
+        this.value = 1;
       }
 
       //pour le montant total de tous les articles

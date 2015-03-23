@@ -31,18 +31,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for stock in Liste_stock %}
+				{% for stock in listestock %}
 					<tr name='Produits' id='{{ stock.produit.idtProduit }}'>
-						<th>{{ stock.produit.NomProduit }}</th>
-						<th>{{ stock.produit.NomFournisseur }}</th>
-						<th>{{ stock.produit.CategorieProduit }}</th>
-						<th>{{ stock.produit.DescriptionProduit}}</th>
-						<th>{{ stock.produit.PrixProduit }}</th>	
-						<th>{{ stock.quantite }}</th>						
+						<td>{{ stock.produit.NomProduit }}</td>
+						<td>{{ stock.produit.NomFournisseur }}</td>
+						<td>{{ stock.produit.CategorieProduit }}</td>
+						<td>{{ stock.produit.DescriptionProduit}}</td>
+						<td>{{ stock.produit.PrixProduit }}</td>	
+						<td>{{ stock.quantite }}</td>						
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
-		
 	</div>
 {% endblock %}

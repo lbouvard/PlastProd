@@ -15,13 +15,13 @@ class LoadListeEtat extends AbstractFixture implements OrderedFixtureInterface
   {
     // Liste des noms de catégorie à ajouter
     $valeur = array(
-      array('Debut production', 'Début de mise en production'),
-      array('Percage', 'Perçages des matières'),
-      array('Assemblage', 'Assemblage des matières'),
-      array('Controle US', 'Contrôle du produit aux ultra-sons'),
-      array('Peinture', 'Habillage du produit'),
-      array('Packaging', 'Préparation au stockage'),
-      array('Fin production', 'Fin de la production')
+      array('Démarrage', 'Début de mise en production'),
+      array('Etape1', 'Etape1'),
+      array('Etape2', 'Etape2'),
+      array('Etape3', 'Etape3'),
+      array('Défaut', 'Défaut rencontré. Mise au rebut'),
+      array('Finalisation', 'Etape de finalisation'),
+      array('Produit fini', 'Produit fini et stocké')
     );
 
     $i = 1;
@@ -31,7 +31,7 @@ class LoadListeEtat extends AbstractFixture implements OrderedFixtureInterface
       // On crée la société
       $liste = new ListeEtat();
   
-      $liste->setLibelle($ligne[0]);
+      $liste->setNomEtat($ligne[0]);
       $liste->setCommentaire($ligne[1]);
   
       // On la persiste
@@ -46,6 +46,6 @@ class LoadListeEtat extends AbstractFixture implements OrderedFixtureInterface
 
   public function getOrder()
   {
-    return 8; // l'ordre dans lequel les fichiers sont chargés
+    return 3; // l'ordre dans lequel les fichiers sont chargés
   }
 }

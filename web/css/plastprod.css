@@ -206,7 +206,7 @@ h6 small {
 }
 
 .well {
-  width: 90%;
+  width: 96%;
 }
 
 input[type=checkbox] {
@@ -287,7 +287,6 @@ input[type=checkbox] {
   width: 100%;
   box-shadow: 10px 10px 5px #888888;
   border:1px solid #000000;
-  width: 96%;
 }
 
 #tabliste table{
@@ -432,4 +431,30 @@ border-bottom-left-radius:0px;
   margin-bottom: 20px;
   text-align: right;
   width: 80%;
+}
+
+.glyphicon {
+  top: 2px;
+  left: 1px;
+  line-height: 0;
+}
+
+.boutonGoogle {
+  width: 70px;
+  height: 70px;
+  background: #ff9600;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 3px 2px 6px #888888;
+  margin-top: 20px;
+}
+
+.boutonGoogle:active {
+  outline: none;
+}
+
+.boutonGoogle:focus {
+  outline: none;
 }

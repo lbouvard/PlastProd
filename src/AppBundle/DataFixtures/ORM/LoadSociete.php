@@ -55,6 +55,6 @@ class LoadSociete extends AbstractFixture implements OrderedFixtureInterface
 
   public function getOrder()
   {
-    return 0; // l'ordre dans lequel les fichiers sont chargés
+    return 4; // l'ordre dans lequel les fichiers sont chargés
   }
 }

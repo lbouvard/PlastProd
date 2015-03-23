@@ -73,7 +73,7 @@ class Societe
     /**
      * @var string
      *
-     * @ORM\Column(name="Commentaire", type="text")
+     * @ORM\Column(name="Commentaire", type="text", nullable=true)
      */
     private $commentaire;
 
@@ -99,11 +99,12 @@ class Societe
     private $bitSup;
 
 
-    public function __construct()
+    public function __construct($type)
     {
         $this->dateModif = null;
         $this->bitModif  = 0;
         $this->bitSup    = 0;
+        $this->typeSociete = $type;
     }
 
     /**

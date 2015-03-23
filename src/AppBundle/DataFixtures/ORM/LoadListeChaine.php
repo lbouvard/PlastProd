@@ -15,11 +15,10 @@ class LoadListeChaine extends AbstractFixture implements OrderedFixtureInterface
   {
     // Liste des noms de catégorie à ajouter
     $valeur = array(
-      array('Chaine1', 'Chaine d\'assemblage nord'),
-      array('Chaine2', 'Chaine d\'assemblage sud'),
-      array('Chaine3', 'Chaine d\'emboutissage'),
-      array('Chaine4', 'Chaine de découpe'),
-      array('ChaineRebu', 'Chaine finale de rebut')
+      array('Chaine1', 'Chaine d\'assemblage 1 nord'),
+      array('Chaine2', 'Chaine d\'assemblage 2 nord'),
+      array('Chaine3', 'Chaine d\'assemblage 1 sud'),
+      array('Chaine4', 'Chaine d\'assemblage 2 sud')
     );
 
     $i = 1;
@@ -44,6 +43,6 @@ class LoadListeChaine extends AbstractFixture implements OrderedFixtureInterface
 
   public function getOrder()
   {
-    return 7; // l'ordre dans lequel les fichiers sont chargés
+    return 2; // l'ordre dans lequel les fichiers sont chargés
   }
 }

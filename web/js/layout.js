@@ -89,6 +89,12 @@ $( document ).ready(function() {
              $('#contacts').html(data);
           }
       });    
-    });    
+    }); 
+
+    //Stock - Fournisseur
+    $(document).on('click', '#btnajoutfournisseur', function() {
+      var url = $("#btnajoutfournisseur").attr("data-path");
+      $(location).attr('href',url);
+    });   
 
 });

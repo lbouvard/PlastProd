@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class StockRepository extends EntityRepository
 {
+	public function getListeStock()
+	{
+	   $qb =  $this->createQueryBuilder('s')
+	   		->leftJoin('s.produit', 'p')
+	    	->addSelect('p');
+
+	   return $qb
+	   		->getQuery()
+	   		->getResult();
+	}
+
 }
