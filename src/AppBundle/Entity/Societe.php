@@ -38,7 +38,7 @@ class Societe
     /**
      * @var string
      *
-     * @ORM\Column(name="Adresse2", type="string", length=50)
+     * @ORM\Column(name="Adresse2", type="string", length=50, nullable=true)
      */
     private $adresse2;
 

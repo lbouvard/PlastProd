@@ -74,16 +74,28 @@ resultat_prod:
 
 accueil_stock:
     path:     /stock
-    defaults: { _controller: AppBundle:Stock:index }
+    defaults: { _controller: AppBundle:Stock:afficher_stock }
 gerer_stock:
     path:     /stock
     defaults: { _controller: AppBundle:Stock:stock }
+modifier_quantite_stock:
+    path:     /modifquantitestock
+    defaults: { _controller: AppBundle:Stock:ModifQuantiteStock }
 modifier_stock:
     path:     /modifstock
-    defaults: { _controller: AppBundle:Stock:modif }
+    defaults: { _controller: AppBundle:Stock:modif_stock }
+ajoutstock:
+    path:     /ajoutstock
+    defaults: { _controller: AppBundle:Stock:ajoutstock }
 modifier_fourn:
     path:     /fournisseur
     defaults: { _controller: AppBundle:Stock:fournisseur }
+page_modifier_fourn:
+    path:     /modiffournisseur/{id}
+    defaults: { _controller: AppBundle:Stock:modiffournisseur }
+ajouter_fourn:
+    path:    /ajouter_fourn
+    defaults: { _controller: AppBundle:Stock:ajout_fourn}
 
 
 

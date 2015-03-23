@@ -1,0 +1,33 @@
+{# src/AppBundle/Resources/views/Stock/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier fournisseur
+{% endblock %}
+
+    {% block stylesheets %}
+      <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+      <link href="{{ asset('css/plastprod.css') }}" type="text/css" rel="stylesheet" />	  
+    {% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_stock') }}">Stock</a></li>
+			<li>Modifier fournisseur: {{fourn.nomSociete}}</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div class="cadrebody">
+		<h1>Modifier Fournisseur: {{fourn.nomSociete}}</h1>
+		<form method="post">
+			{{form_widget(form)}}
+			<input type="submit" class="submit" value="Modifier" />
+		</form>
+	</div>
+		
+{% endblock %}

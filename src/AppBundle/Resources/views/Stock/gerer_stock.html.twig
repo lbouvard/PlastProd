@@ -1,0 +1,31 @@
+{# src/AppBundle/Resources/views/Stock/index.html.twig #}
+{% extends "AppBundle:Stock:index.html.twig" %}
+
+{% block title %}
+    {{ parent() - Stock}}
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_client') }}">Stock</a></li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<h2>
+		{% block titremodule %}
+			Accueil
+		{% endblock %}
+	</h2>
+	
+	<div id="cadrebody">
+		{% block cadre %}
+			toto
+		{% endblock %}	
+	</div>
+
+{% endblock %}

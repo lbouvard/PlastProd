@@ -1,0 +1,51 @@
+{# src/AppBundle/Resources/views/Stock/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Fournisseurs
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_stock') }}">Stock</a></li>
+			<li>Fournisseurs</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h1>Fournisseurs</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Nom </th>
+					<th>Adresse</th>
+					<th>CP</th>
+					<th>Ville</th>
+					<th>Pays</th>
+					<th>Type</th>
+					<th>Commentaire</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for fourn in Liste_fourn %}
+					<tr>
+						<th>{{ fourn.nomSociete }}</th>
+						<th>{{ fourn.adresse1 }} {{ fourn.adresse2 }}</th>
+						<th>{{ fourn.codePostal }}</th>
+						<th>{{ fourn.ville }}</th>	
+						<th>{{ fourn.pays }}</th>	
+						<th>{{ fourn.typeSociete }}</th>	
+						<th>{{ fourn.commentaire }}</th>
+						<th><a href="{{path("page_modifier_fourn",{id:fourn.idtSociete})}}">Modifier</a></th>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="{{path("ajouter_fourn")}}">Ajouter un fournisseur</a>
+{% endblock %}

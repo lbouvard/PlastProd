@@ -17,6 +17,32 @@
 
 {% block body %}
 	<div id="cadrebody">
-		<h1>Module Stock</h1>
+		<h3>Etat du stock</h3>
+		
+		<table id="tabliste">
+			<thead>
+				<tr>
+					<th>Nom du produit</th>
+					<th>Nom du fournisseur</th>
+					<th>Catégorie de produit</th>
+					<th>Description</th>
+					<th>Prix</th>
+					<th>Quantité</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for stock in Liste_stock %}
+					<tr name='Produits' id='{{ stock.produit.idtProduit }}'>
+						<th>{{ stock.produit.NomProduit }}</th>
+						<th>{{ stock.produit.NomFournisseur }}</th>
+						<th>{{ stock.produit.CategorieProduit }}</th>
+						<th>{{ stock.produit.DescriptionProduit}}</th>
+						<th>{{ stock.produit.PrixProduit }}</th>	
+						<th>{{ stock.quantite }}</th>						
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		
 	</div>
 {% endblock %}

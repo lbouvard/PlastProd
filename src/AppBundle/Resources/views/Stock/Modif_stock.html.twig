@@ -1,0 +1,76 @@
+{# src/AppBundle/Resources/views/Stock/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier stock
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_stock') }}">Stock</a></li>
+			<li>Modifier le Stock</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h1>Modifier le Stock</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Nom du produit</th>
+					<th>Nom du fournisseur</th>
+					<th>Catégorie de produit</th>
+					<th>Prix</th>
+					<th>Quantite</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for stock in Liste_stock %}
+					<tr name='Produits' id='{{ stock.produit.idtProduit }}'>
+						<th>{{ stock.produit.NomProduit }}</th>
+						<th>{{ stock.produit.NomFournisseur }}</th>
+						<th>{{ stock.produit.CategorieProduit }}</th>
+						<th><input class="Prix" value="{{ stock.produit.PrixProduit }}"/></th>
+						<th><input class="quantite" value="{{ stock.quantite }}" data-idstock="{{ stock.idtEntree }}"/></th>
+						<th><input type="submit" class="submit" /></th>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href ={{ path('ajoutstock')}} class="a_ajout">Ajouter un produit</a>
+{% endblock %}
+{% block js %}
+	<script>
+	 $(function(){
+		$(".submit").click(function(){
+			var submit = $(this);
+			var quantite = submit.parent().parent().find(".quantite").val();
+			var Prix = submit.parent().parent().find(".Prix").val();
+			var id = submit.parent().parent().find(".quantite").data("idstock");
+			$.ajax("{{path('modifier_quantite_stock')}}",
+			{
+				method:"post",
+				data:"id="+id+"&qte="+quantite+"&prix="+Prix,
+				dataType:"json",
+				success:function(data){
+					if(data.success){
+						alert(data.success);
+					}else{
+						alert(data.error);
+					}
+				},
+				error:function(){
+					
+				}
+			});
+			
+		});
+	 });
+	</script>
+{% endblock %}

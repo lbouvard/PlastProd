@@ -1,0 +1,33 @@
+{# src/AppBundle/Resources/views/Stock/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Ajouter produit
+{% endblock %}
+
+    {% block stylesheets %}
+      <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+      <link href="{{ asset('css/plastprod.css') }}" type="text/css" rel="stylesheet" />	  
+    {% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li class="active"><a href="{{ path('accueil_stock') }}">Stock</a></li>
+			<li>Ajouter produit</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div class="cadrebody">
+		<h1>Ajouter produit</h1>
+			<form method="POST">
+				{{form_widget(formajout)}}
+				<input type="submit" Value="Ajouter" class="submit"/>
+			</form>
+	</div>
+		
+{% endblock %}

@@ -31,7 +31,7 @@ class Stock
     /**
      * @var string
      *
-     * @ORM\Column(name="Commentaire", type="text")
+     * @ORM\Column(name="Commentaire", type="text", nullable=true)
      */
     private $commentaire;
 
@@ -76,6 +76,11 @@ class Stock
     */
     private $produit;
 
+    public function __construct() 
+	{
+		$this->bitChg = 0;
+		$this->bitSup = 0;
+	}
     
     /**
      * Get id
