@@ -27,7 +27,7 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-    
+
         login:
             # Cette expression régulière permet de prendre /login (mais pas /login_check !)
             pattern:   ^/(connexion|accueil)

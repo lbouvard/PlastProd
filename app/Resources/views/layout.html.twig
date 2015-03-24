@@ -49,7 +49,6 @@
                 <p class="navbar-text">{{ app.user.username }}</p>
               </li>
               <li>
-                  <!-- data-toggle="modal" data-target="#myModal"> -->
                   <button id="deconnexionbtn" type="button" class="btn btn-default navbar-btn" data-path="{{ path('logout') }}">
                     Se déconnecter
                   </button>
@@ -62,7 +61,7 @@
               </li>
             {% endif %}
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
 
@@ -82,6 +81,15 @@
         </div>
       {% endfor %}
 
+      {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="alert alert-info alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ flashMessage }}
+        </div>
+      {% endfor %}
+
       {% for flashMessage in app.session.flashbag.get('erreur') %}
         <div class="alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -90,6 +98,9 @@
           {{ flashMessage }}
         </div>
       {% endfor %}
+
+      {% block flash %}
+      {% endblock %}
 
       <div class="row">
         <div class="col-md-1">

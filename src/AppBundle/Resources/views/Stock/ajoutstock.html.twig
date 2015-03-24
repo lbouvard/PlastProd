@@ -2,18 +2,13 @@
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Ajouter produit
+    {{ parent() }} - Stock - Ajouter produit
 {% endblock %}
-
-    {% block stylesheets %}
-      <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
-      <link href="{{ asset('css/plastprod.css') }}" type="text/css" rel="stylesheet" />	  
-    {% endblock %}
 
 {% block breadcrumb %}
         <ol class="breadcrumb">
-        	<li class="active"><a href="{{ path('accueil_stock') }}">Stock</a></li>
-			<li>Ajouter produit</li>
+        	<li><a href="{{ path('accueil_stock') }}">Stock</a></li>
+			<li class="active">Ajout produit</li>
         </ol>
 {% endblock %}
 
@@ -22,12 +17,107 @@
 {% endblock %}
 
 {% block body %}
-	<div class="cadrebody">
-		<h1>Ajouter produit</h1>
-			<form method="POST">
-				{{form_widget(formajout)}}
-				<input type="submit" Value="Ajouter" class="submit"/>
-			</form>
+	<div id="cadrebody">
+		<h3>Ajouter un produit</h3>
+
+	    <div class="well">
+	      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+	      	{{ form_errors(form) }}
+
+		    <div class="form-group">
+
+		      {{ form_label(form.producteur, "Producteur", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.producteur) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.producteur, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.codeProduit, "Code produit", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.codeProduit) }}
+
+		      <div class="col-sm-4">
+		        {{ form_widget(form.codeProduit, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.nomProduit, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.nomProduit) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.nomProduit, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>	
+
+		    <div class="form-group">
+
+		      {{ form_label(form.descriptionProduit, "Description", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.descriptionProduit) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.descriptionProduit, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.categorieProduit, "Catégorie", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.categorieProduit) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.categorieProduit, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.prixProduit, "Prix", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.prixProduit) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.prixProduit, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.quantite, "Quantité", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.quantite) }}
+
+		      <div class="col-sm-4">
+		        {# Génération de l'input. #}
+		        {{ form_widget(form.quantite, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
+		    <div id="submitform">
+		    	{{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+		        {{ form_widget(form.annuler, {'attr': {'class': 'btn btn-default'}}) }}
+		    </div>
+
+		 	{{ form_rest(form) }}
+	  
+	  	  {# Fermeture de la balise <form> du formulaire HTML #}
+	  	  {{ form_end(form) }}
+	    </div>
 	</div>
 		
 {% endblock %}

@@ -29,7 +29,7 @@ class LoadSociete extends AbstractFixture implements OrderedFixtureInterface
     foreach ($valeur as $ligne) {
 
       // On crée la société
-      $societe = new Societe();
+      $societe = new Societe($ligne[6]);
   
       $societe->setNomSociete($ligne[0]);
       $societe->setAdresse1($ligne[1]);
@@ -37,7 +37,6 @@ class LoadSociete extends AbstractFixture implements OrderedFixtureInterface
       $societe->setCodePostal($ligne[3]);
       $societe->setVille($ligne[4]);
       $societe->setPays($ligne[5]);
-      $societe->setTypeSociete($ligne[6]);
       $societe->setCommentaire($ligne[7]);
       $societe->setDateModif($ligne[8]);
       $societe->setBitModif($ligne[9]);

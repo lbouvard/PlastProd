@@ -1,0 +1,63 @@
+{# src/AppBundle/Resources/views/Stock/stock.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Stock - Modifier
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/stock-general.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li><a href="{{ path('accueil_stock') }}">Stock</a></li>
+			<li class="active">Modifier le Stock</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Modifier le Stock</h3>
+
+		<div id="flash" data-path="{{ path('variation_stock') }}">
+		</div>
+
+		<table id="tabliste">
+			<thead>
+				<tr>
+					<th>Fournisseur</th>
+					<th>Nom du produit</th>
+					<th>Catégorie de produit</th>
+					<th>Prix</th>
+					<th>Quantite</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for stock in listestock %}
+					<tr name='stock' id="{{ stock.idtEntree }}">
+						<td>{{ stock.produit.producteur.NomSociete }}</td>
+						<td>{{ stock.produit.NomProduit }}</td>
+						<td>{{ stock.produit.CategorieProduit }}</td>
+						<td><input class="Prix" value="{{ stock.produit.PrixProduit }}"/></td>
+						<td><input type="number" value="{{ stock.quantite }}"/></td>
+						<td>
+							<a id="{{ stock.idtEntree }}" class="btn btn-success" title="Valider la ligne" href="#">Valider</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<button id="btnajoutfournisseur" class="boutonGoogle" data-path="{{ path('ajouter_stock') }}" title="Ajouter un produit">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+
+{% endblock %}

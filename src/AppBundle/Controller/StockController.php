@@ -12,6 +12,7 @@ use AppBundle\Entity\Produits;
 use AppBundle\Entity\Stock;
 use AppBundle\Entity\Societe;
 use AppBundle\Form\SocieteType;
+use AppBundle\Form\ProduitsType;
 
 class StockController extends Controller
 {
@@ -39,7 +40,7 @@ class StockController extends Controller
 			->getManager()
 			->getRepository('AppBundle:Societe');
 		
-		$listefournisseur = $repository->getListeFournisseur();
+		$listefournisseur = $repository->getListeFournisseur2();
 		
 		return $this->render('AppBundle:Stock:fournisseur.html.twig', array('listefournisseur' => $listefournisseur) );
 	}
@@ -95,12 +96,11 @@ class StockController extends Controller
         ));
 	}
 
-
 	public function ajoutStockAction(Request $request){
 
 		$produit = new Produits();
 
-		$form = $this->createForm( new Produits(), $produit, array('produit_fournisseur' => false) )
+		$form = $this->createForm( new ProduitsType(), $produit, array('produit_fournisseur' => false) );
 	
 		if( $form->handleRequest($request)->isValid()) {
 
@@ -108,51 +108,53 @@ class StockController extends Controller
 			$em->persist($produit);
 
 			$stock = new Stock();
-			$stock->setQuantite
-		}
+			$stock->setQuantite($produit->getQuantite());
+			$stock->setProduit($produit);
+			$em->persist($stock);
 
-			/*if ($formajout->isValid()) {
-				$registration = $formajout->getData();
-				$registration -> setBitModif (False);
-				$registration -> setBitSup(False);
-				$registration -> setNomFournisseur($registration->getProducteur() ->getNomSociete());
-				$stock = new Stock();
-				$em->persist($registration);
-				$stock -> setQuantite(0);
-				$stock -> setProduit($registration);
-				
-				$em->persist($stock);
-				$em->flush();
+			$em->flush();
 
-				return $this->redirect($this->generateUrl('gerer_stock'));
-			}*/					
+			$request->getSession()->getFlashBag()->add('notice', 'Le produits a été ajouté et le stock modifié.');
+			if( $produit->getProducteur()->getTypeSociete() == 'M')
+				$request->getSession()->getFlashBag()->add('info', 'Pensez à créer la nomenclature.');
+
+			return $this->redirect($this->generateUrl('accueil_stock'));
+		}				
 				
-		return $this->render('AppBundle:Stock:ajoutstock.html.twig', array('formajout' => $formajout->createView()));
+		return $this->render('AppBundle:Stock:ajoutstock.html.twig', array('form' => $form->createView()));
 	}
+
 	public function modifieStockAction(){
-		$listestock=$this->getDoctrine()->getEntityManager()->createQueryBuilder()
-                ->add('from','AppBundle:Stock s')
-                ->select('s')
-                ->leftJoin('s.produit','p')
-				->addSelect("p")
-                ->getQuery()->getResult();		
+    	
+    	$repository = $this
+			->getDoctrine()
+			->getManager()
+			->getRepository('AppBundle:Stock');
+
+		$listestock = $repository->getListeStock();	
 		
-		return $this->render('AppBundle:Stock:Modif_stock.html.twig', array('Liste_stock' => $listestock));
+		return $this->render('AppBundle:Stock:modifiestock.html.twig', array('listestock' => $listestock) );
 	}
-	public function modifQuantiteStockAction(){
-		if(isset($_POST) & !empty($_POST)){
-			extract($_POST);
-			$em = $this->getDoctrine()->getEntityManager();
-			$stock = $em->getRepository("AppBundle:Stock")->findBy(array("idtEntree" =>$id))[0];
-			
-				$stock ->setQuantite($qte);
-				$stock -> getProduit() ->setPrixProduit($prix);
-				$em -> flush();
-				$message=json_encode(array("success"=>"Mis à jour avec succès"));
-		}
-		else {
-			$message=json_encode(array("error"=>"Aucune donnée envoyée"));
-		}
-		return $this->render('AppBundle:Stock:vide.html.twig', array('message' => $message));
+
+	public function variationStockAction(Request $request){
+
+		$id = $request->request->get('id');
+		$quantite = $request->request->get('quantite');
+		$prix = $request->request->get('prix');
+
+		$em = $this->getDoctrine()->getManager();
+
+    	$repository = $em->getRepository('AppBundle:Stock');
+		$stock = $repository->getLigneStock($id);
+
+		$stock->setQuantite($quantite);
+		$stock->getProduit()->setPrixProduit($prix);
+
+		$em->persist($stock);
+		$em->flush();
+
+		$request->getSession()->getFlashBag()->add('notice', 'Le stock a été modifié.');
+
+		return $this->render('AppBundle:Stock:flash.html.twig');
 	}
 }

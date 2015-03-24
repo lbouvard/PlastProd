@@ -31,7 +31,7 @@ class Produits
     /**
      * @var string
      *
-     * @ORM\Column(name="DescriptionProduit", type="text")
+     * @ORM\Column(name="DescriptionProduit", type="text", nullable=true)
      */
     private $descriptionProduit;
 
@@ -45,7 +45,7 @@ class Produits
     /**
      * @var string
      *
-     * @ORM\Column(name="CodeProduit", type="string", length=25)
+     * @ORM\Column(name="CodeProduit", type="string", length=25, nullable=true)
      */
     private $codeProduit;
 

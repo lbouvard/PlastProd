@@ -48,5 +48,7 @@ swiftmailer:
     transport: smtp
     auth_mode: login
     host: smtp.free.fr
+    port: 587
+    encryption: ssl
     username: bouvard.laurent
     password: j0WOJzoEUJ38Gqdy

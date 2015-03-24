@@ -25,4 +25,19 @@ $(document).ready(function() {
 		
 	});
 
+	    //création bon à jeter
+  	$(document).on( 'click', "tr[name='stock'] a", function(){
+
+	    $.ajax({
+	        type: "POST",
+	        url: $("#flash").attr("data-path"),
+	        data: { id: $(this)[0].id, quantite: $('#' + $(this)[0].id)[0].cells[4].firstChild.value, prix: $('#' + $(this)[0].id)[0].cells[3].firstChild.value },
+	        cache: false,
+	        success: function(data){
+	           $('#flash').html(data);
+	        }
+	    });    
+    });
+
+
 });

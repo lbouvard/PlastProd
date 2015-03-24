@@ -15,30 +15,36 @@ class SocieteRepository extends EntityRepository
 	public function getListeClient()
 	{
 	  return $this
-	    ->createQueryBuilder('s')
+		->createQueryBuilder('s')
 	    ->where('s.typeSociete = :type')
 	    ->setParameters(array('type'=> 'C'));
 	}
 
 	public function getListeFournisseur()
 	{
-		$qb = $this->createQueryBuilder('s')
+		return $this
+			->createQueryBuilder('s')
 	    	->where('s.typeSociete = :type')
-	    	->setParameters(array('type'=> 'F'));
-
-	    return $qb->getQuery()
-	    	->getResult();		
+	    	->setParameters(array('type'=> 'F'));	
 	}
+
+	public function getListeFournisseur2()
+	{
+		return $this
+			->createQueryBuilder('s')
+	    	->where('s.typeSociete = :type')
+	    	->setParameters(array('type'=> 'F'))
+	    	->getQuery()
+	    	->getResult();	
+	}	
 
 	public function getListeFournisseurStock()
 	{
-		$qb = $this->createQueryBuilder('s')
+		return $this
+			->createQueryBuilder('s')
 	    	->where('s.typeSociete = :type1')
-	    	->andWhere('s.typeSociete = :type2')
-	    	->setParameters(array('type1'=> 'F', 'type2' => 'M'));
-
-	    return $qb->getQuery()
-	    	->getResult();			
+	    	->orWhere('s.typeSociete = :type2')
+	    	->setParameters(array('type1'=> 'F', 'type2' => 'M'));			
 	}
 
 	public function getSocieteParId($id)

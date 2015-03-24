@@ -14,13 +14,27 @@ class StockRepository extends EntityRepository
 {
 	public function getListeStock()
 	{
-	   $qb =  $this->createQueryBuilder('s')
+	    $qb =  $this->createQueryBuilder('s')
 	   		->leftJoin('s.produit', 'p')
-	    	->addSelect('p');
+	    	->addSelect('p')
+	    	->leftJoin('p.producteur', 'fournisseur')
+	    	->addSelect('fournisseur');
 
-	   return $qb
+	    return $qb
 	   		->getQuery()
 	   		->getResult();
 	}
 
+	public function getLigneStock($id)
+	{	
+		$qb = $this->createQueryBuilder('s')
+	   		->leftJoin('s.produit', 'p')
+	    	->addSelect('p')
+			->where('s.idtEntree = :id')
+			->setParameters(array('id'=> $id));
+
+		return $qb
+			->getQuery()
+			->getSingleResult();
+	}
 }

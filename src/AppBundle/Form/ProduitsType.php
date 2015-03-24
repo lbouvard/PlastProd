@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use AppBundle\Entity\ProduitsRepository;
+use AppBundle\Entity\SocieteRepository;
 
 class ProduitsType extends AbstractType
 {
@@ -31,8 +32,7 @@ class ProduitsType extends AbstractType
                     'query_builder' => function(SocieteRepository $repo) {
                         return $repo->getListeFournisseur();
                     } 
-                )
-            );
+                ));
         }
         else
         {
@@ -44,16 +44,16 @@ class ProduitsType extends AbstractType
                         'multiple' => false, 
                         'query_builder' => function(SocieteRepository $repo) {
                             return $repo->getListeFournisseurStock();
-                            }
+                        }
                     ))
-                    ->add('codeProduit', 'text', array("label"=>"Code Produit"))
-                    ->add('nomProduit', 'text', array("label"=>"Nom"))
-                    ->add('descriptionProduit', 'text', array("label"=>"Description"))
-                    ->add('categorieProduit', 'text', array("label"=>"Catégorie"))
-                    ->add('prixProduit', 'text', array("label"=>"Prix"))
-                    ->add('quantite', 'integer');
-                    ->add('droit', 'submit');
-                    ->add('annuler', 'submit') ;
+                    ->add('codeProduit', 'text')
+                    ->add('nomProduit', 'text')
+                    ->add('descriptionProduit', 'textarea')
+                    ->add('categorieProduit', 'text')
+                    ->add('prixProduit', 'text')
+                    ->add('quantite', 'integer')
+                    ->add('valider', 'submit')
+                    ->add('annuler', 'submit');
         }
     }
     
@@ -63,7 +63,7 @@ class ProduitsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Produits'
+            'data_class' => 'AppBundle\Entity\Produits', 'produit_fournisseur' => true
         ));
     }
 

@@ -126,7 +126,7 @@ class AdminController extends Controller
             $this->get('mailer')->send($message);
 
             //message de réussite
-            $request->getSession()->getFlashBag()->add('notice', 'Contact bien enregistré.');
+            $request->getSession()->getFlashBag()->add('notice', 'Contact bien enregistré ('.$mdp.').');
 
             // On redirige
             return $this->redirect($this->generateUrl('accueil_admin'));

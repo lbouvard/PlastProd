@@ -76,17 +76,16 @@ accueil_stock:
     path:     /stock
     defaults: { _controller: AppBundle:Stock:index }
 
-modifier_quantite_stock:
-    path:     /modifquantitestock
-    defaults: { _controller: AppBundle:Stock:ModifQuantiteStock }
+variation_stock:
+    path:     /stock/modifier
+    defaults: { _controller: AppBundle:Stock:variationStock }
 modifier_stock:
-    path:     /stock/produit/{id}
+    path:     /stock/gestion
     defaults: { _controller: AppBundle:Stock:modifieStock }
-    requirements:
-        id: \d*
 ajouter_stock:
     path:     /stock/produit/ajout
     defaults: { _controller: AppBundle:Stock:ajoutStock }
+
 
 gerer_fournisseur:
     path:     /fournisseur
