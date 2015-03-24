@@ -107,14 +107,20 @@ class StockController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($produit);
 
-			$stock = new Stock();
-			$stock->setQuantite($produit->getQuantite());
-			$stock->setProduit($produit);
-			$em->persist($stock);
+			//on ajoute autant de ligne que de quantité demandé du produit
+			for ($i = 0; $i < $produit->getQuantite(); $i++) 
+			{
+				$stock = new Stock();
+
+				$stock->setDateEntree(new \DateTime());
+				$stock->setProduit($produit);
+
+				$em->persist($stock);
+			}
 
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('notice', 'Le produits a été ajouté et le stock modifié.');
+			$request->getSession()->getFlashBag()->add('notice', 'Le(s) produit(s) a(ont) été ajouté(s) et le stock modifié.');
 			if( $produit->getProducteur()->getTypeSociete() == 'M')
 				$request->getSession()->getFlashBag()->add('info', 'Pensez à créer la nomenclature.');
 
@@ -141,20 +147,65 @@ class StockController extends Controller
 		$id = $request->request->get('id');
 		$quantite = $request->request->get('quantite');
 		$prix = $request->request->get('prix');
+		$operation = $request->request->get('operation');
+		$valeur = $request->request->get('valeur');
 
 		$em = $this->getDoctrine()->getManager();
+    	$repository = $em->getRepository('AppBundle:Produits');
+        $produit = $repository->getProduitParId($id);
 
-    	$repository = $em->getRepository('AppBundle:Stock');
-		$stock = $repository->getLigneStock($id);
+		//cas de l'ajout de produits
+		if( $operation == '+'){
 
-		$stock->setQuantite($quantite);
-		$stock->getProduit()->setPrixProduit($prix);
+			for ($i = 0; $i < $valeur; $i++) 
+			{
+				$stock = new Stock();
 
-		$em->persist($stock);
+				$stock->setDateEntree(new \DateTime());
+				$stock->setProduit($produit);
+
+				$em->persist($stock);
+			}
+		}
+		//cas de la suppression de produits
+		else if( $operation == '-'){
+			$repository = $em->getRepository('AppBundle:Stock');
+			$lignes = $repository->getLigneASupprimer($valeur, $id);
+
+			foreach ($lignes as $val){
+				$val->setDateSortie(new \DateTime());
+				$val->setBitSup(1);
+
+				$em->persist($val);
+			}
+		}
+
+		//pour le prix du produit
+		$produit->setPrixProduit($prix);
+		$em->persist($produit);
+
 		$em->flush();
 
 		$request->getSession()->getFlashBag()->add('notice', 'Le stock a été modifié.');
 
 		return $this->render('AppBundle:Stock:flash.html.twig');
+	}
+
+	public function lignesProduitAction(Request $request){
+
+		//si demande ajax
+        if($request->isXmlHttpRequest())
+        {
+            $id = $request->request->get('id');
+
+            $repository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:Stock');
+
+            $lignes = $repository->getLignesParId($id);
+            
+        	return $this->render('AppBundle:Stock:lignesajax.html.twig', array('lignes' => $lignes));
+        }
 	}
 }

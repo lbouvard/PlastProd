@@ -1,0 +1,31 @@
+{# src/AppBundle/Resources/view/Stock/lignesajax.html.twig #}
+
+<h3>Détails</h3>
+
+<table id="tabliste">
+    <thead>
+        <tr>
+            <th>Id interne</th>
+            <th>Date d'entrée</th>
+            <th>Date de sortie</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for ligne in lignes %}
+            <tr>
+                <td>{{ ligne.idtEntree }}</td>
+                <td>{{ ligne.dateEntree|date('d-m-Y H:i:s') }}</td>
+
+                {% if ligne.dateSortie is empty %}
+                    <td>-</td>
+                {% else %}
+                    <td>{{ ligne.dateSortie|date('d-m-Y H:i:s') }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    <tfoot>
+    </tfoot>
+</table>

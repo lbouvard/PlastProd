@@ -85,7 +85,9 @@ modifier_stock:
 ajouter_stock:
     path:     /stock/produit/ajout
     defaults: { _controller: AppBundle:Stock:ajoutStock }
-
+ligne_stock:
+    path:     /stock/produit/lignes
+    defaults: { _controller: AppBundle:Stock:lignesProduit }
 
 gerer_fournisseur:
     path:     /fournisseur

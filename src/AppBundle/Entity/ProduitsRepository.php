@@ -27,4 +27,15 @@ class ProduitsRepository extends EntityRepository
 	   			->getQuery()
 	   			->getResult();
 	}
+
+	public function getProduitParId($id)
+	{
+		$qb = $this->createQueryBuilder('p')
+			->where('p.idtProduit = :id')
+			->setParameters(array('id' => $id));
+
+		return $qb
+				->getQuery()
+				->getSingleResult();
+	}
 }

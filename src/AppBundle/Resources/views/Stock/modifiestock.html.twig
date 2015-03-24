@@ -42,14 +42,14 @@
 			</thead>
 			<tbody>
 				{% for stock in listestock %}
-					<tr name='stock' id="{{ stock.idtEntree }}">
-						<td>{{ stock.produit.producteur.NomSociete }}</td>
-						<td>{{ stock.produit.NomProduit }}</td>
-						<td>{{ stock.produit.CategorieProduit }}</td>
-						<td><input class="Prix" value="{{ stock.produit.PrixProduit }}"/></td>
-						<td><input type="number" value="{{ stock.quantite }}"/></td>
+					<tr name='stock' id="{{ stock[0].produit.idtProduit }}">
+						<td>{{ stock['nomSociete'] }}</td>
+						<td>{{ stock['nomProduit'] }}</td>
+						<td>{{ stock['categorieProduit'] }}</td>
+						<td><input class="Prix" value="{{ stock['prixProduit'] }}"/></td>
+						<td><input type="number" value="{{ stock['quantite'] }}" data-save="{{ stock['quantite'] }}"/></td>
 						<td>
-							<a id="{{ stock.idtEntree }}" class="btn btn-success" title="Valider la ligne" href="#">Valider</a>
+							<a id="{{ stock[0].produit.idtProduit }}" class="btn btn-success" title="Valider la ligne" href="#">Valider</a>
 						</td>
 					</tr>
 				{% endfor %}

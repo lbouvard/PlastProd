@@ -5,6 +5,12 @@
     {{ parent() }} - Module stock
 {% endblock %}
 
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/stock-general.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block breadcrumb %}
         <ol class="breadcrumb">
         	<li class="active"><a href="{{ path('accueil_stock') }}">Stock</a></li>
@@ -18,13 +24,12 @@
 {% block body %}
 	<div id="cadrebody">
 		<h3>Etat du stock</h3>
-		
+
 		<table id="tabliste">
 			<thead>
 				<tr>
 					<th>Fournisseur</th>
 					<th>Nom du produit</th>
-					<th>Catégorie de produit</th>
 					<th>Description</th>
 					<th>Prix</th>
 					<th>Quantité</th>
@@ -32,16 +37,18 @@
 			</thead>
 			<tbody>
 				{% for stock in listestock %}
-					<tr name='Produits' id='{{ stock.produit.idtProduit }}'>
-						<td>{{ stock.produit.producteur.NomSociete }}</td>
-						<td>{{ stock.produit.NomProduit }}</td>
-						<td>{{ stock.produit.CategorieProduit }}</td>
-						<td>{{ stock.produit.DescriptionProduit}}</td>
-						<td>{{ stock.produit.PrixProduit }}</td>	
-						<td>{{ stock.quantite }}</td>						
+					<tr name='produit' id='{{ stock[0].produit.idtProduit }}'>
+						<td>{{ stock['nomSociete'] }}</td>
+						<td>{{ stock['nomProduit'] }}</td>
+						<td>{{ stock['descriptionProduit'] }}</td>
+						<td>{{ stock['prixProduit'] ~ ' €' }}</td>	
+						<td>{{ stock['quantite'] }}</td>						
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+
+		<div id="lignesParProduit" data-path="{{ path('ligne_stock') }}">        
+        </div>
 	</div>
 {% endblock %}
