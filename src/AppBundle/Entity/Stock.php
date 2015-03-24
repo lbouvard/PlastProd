@@ -80,6 +80,9 @@ class Stock
 	{
 		$this->bitChg = 0;
 		$this->bitSup = 0;
+        $this->dateChg = null;
+        $this->dateSortie = null;
+        $this->commentaire = null;
 	}
     
     /**

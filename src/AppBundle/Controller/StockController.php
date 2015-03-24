@@ -96,35 +96,36 @@ class StockController extends Controller
 	}
 
 
-	public function ajoutStockAction(){
-		$em = $this->getDoctrine()->getEntityManager();
+	public function ajoutStockAction(Request $request){
 
-		$formajout = $this->createFormBuilder( new Produits())
-					->add('nomProduit', 'text', array("label"=>"Nom"))
-					->add('producteur', 'entity', array("label"=>"Fournisseur",
-					'class'=>'AppBundle:Societe'))
-					->add('descriptionProduit', 'text', array("label"=>"Description"))
-					->add('categorieProduit', 'text', array("label"=>"Catégorie"))
-					->add('codeProduit', 'text', array("label"=>"Code Produit"))
-					->add('prixProduit', 'text', array("label"=>"Prix"))
-					->getForm();
-					 $formajout->handleRequest($this->getRequest());
+		$produit = new Produits();
 
-					if ($formajout->isValid()) {
-						$registration = $formajout->getData();
-						$registration -> setBitModif (False);
-						$registration -> setBitSup(False);
-						$registration -> setNomFournisseur($registration->getProducteur() ->getNomSociete());
-						$stock = new Stock();
-						$em->persist($registration);
-						$stock -> setQuantite(0);
-						$stock -> setProduit($registration);
-						
-						$em->persist($stock);
-						$em->flush();
+		$form = $this->createForm( new Produits(), $produit, array('produit_fournisseur' => false) )
+	
+		if( $form->handleRequest($request)->isValid()) {
 
-						return $this->redirect($this->generateUrl('gerer_stock'));
-					}					
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($produit);
+
+			$stock = new Stock();
+			$stock->setQuantite
+		}
+
+			/*if ($formajout->isValid()) {
+				$registration = $formajout->getData();
+				$registration -> setBitModif (False);
+				$registration -> setBitSup(False);
+				$registration -> setNomFournisseur($registration->getProducteur() ->getNomSociete());
+				$stock = new Stock();
+				$em->persist($registration);
+				$stock -> setQuantite(0);
+				$stock -> setProduit($registration);
+				
+				$em->persist($stock);
+				$em->flush();
+
+				return $this->redirect($this->generateUrl('gerer_stock'));
+			}*/					
 				
 		return $this->render('AppBundle:Stock:ajoutstock.html.twig', array('formajout' => $formajout->createView()));
 	}

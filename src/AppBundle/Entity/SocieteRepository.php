@@ -30,6 +30,17 @@ class SocieteRepository extends EntityRepository
 	    	->getResult();		
 	}
 
+	public function getListeFournisseurStock()
+	{
+		$qb = $this->createQueryBuilder('s')
+	    	->where('s.typeSociete = :type1')
+	    	->andWhere('s.typeSociete = :type2')
+	    	->setParameters(array('type1'=> 'F', 'type2' => 'M'));
+
+	    return $qb->getQuery()
+	    	->getResult();			
+	}
+
 	public function getSocieteParId($id)
 	{
 		$qb = $this->createQueryBuilder('s')

@@ -15,12 +15,12 @@ class LoadProduits extends AbstractFixture implements OrderedFixtureInterface
   {
     // Liste des noms de catégorie à ajouter
     $valeur = array(
-      array('PlastProd', 'Comodo208', 'Boite à gant granuleux', 'Automobile', 'RE15208', 58, null, 0, 0, 1),
-      array('PlastProd', 'Comodo542', 'Dock prise mobile', 'Automobile', 'PE14542', 18, null, 0, 0, 1),
-      array('PlastProd', 'CommandeClim', 'Bloc commande climatisation', 'Automobile', 'FD13633', 85, null, 0, 0, 1),
-      array('Valeo', 'Plast1254', 'Attache universel', 'General', '125475621', 10, null, 0, 0, 2),
-      array('Valeo', 'Bouton diam25', 'Bouton poussoir soft', 'Connectique', 'B5412S-25', 3, null, 0, 0, 2),
-      array('PlasticLux', 'Bande PVC', 'Bande PVC noir mat', 'Matiere', '546454SS', 15, null, 0, 0, 5)
+      array('Comodo208', 'Boite à gant granuleux', 'Automobile', 'RE15208', 58, null, 0, 0, 1),
+      array('Comodo542', 'Dock prise mobile', 'Automobile', 'PE14542', 18, null, 0, 0, 1),
+      array('CommandeClim', 'Bloc commande climatisation', 'Automobile', 'FD13633', 85, null, 0, 0, 1),
+      array('Plast1254', 'Attache universel', 'General', '125475621', 10, null, 0, 0, 2),
+      array('Bouton diam25', 'Bouton poussoir soft', 'Connectique', 'B5412S-25', 3, null, 0, 0, 2),
+      array('Bande PVC', 'Bande PVC noir mat', 'Matiere', '546454SS', 15, null, 0, 0, 5)
     );
 
     $i = 1;
@@ -30,16 +30,15 @@ class LoadProduits extends AbstractFixture implements OrderedFixtureInterface
       // On crée la société
       $produit = new Produits();
   
-      $produit->setNomFournisseur($ligne[0]);
-      $produit->setNomProduit($ligne[1]);
-      $produit->setDescriptionProduit($ligne[2]);
-      $produit->setCategorieProduit($ligne[3]);
-      $produit->setCodeProduit($ligne[4]);
-      $produit->setPrixProduit($ligne[5]);
-      $produit->setDateModif($ligne[6]);
-      $produit->setBitModif($ligne[7]);
-      $produit->setBitSup($ligne[8]);
-      $produit->setProducteur($this->getReference('societe_'.$ligne[9]));
+      $produit->setNomProduit($ligne[0]);
+      $produit->setDescriptionProduit($ligne[1]);
+      $produit->setCategorieProduit($ligne[2]);
+      $produit->setCodeProduit($ligne[3]);
+      $produit->setPrixProduit($ligne[4]);
+      $produit->setDateModif($ligne[5]);
+      $produit->setBitModif($ligne[6]);
+      $produit->setBitSup($ligne[7]);
+      $produit->setProducteur($this->getReference('societe_'.$ligne[8]));
   
       // On la persiste
       $manager->persist($produit);

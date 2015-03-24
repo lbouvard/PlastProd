@@ -16,22 +16,45 @@ class ProduitsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('nomFournisseur', 'text')
-            ->add('nomProduit', 'text')
-            ->add('descriptionProduit', 'textarea')
-            ->add('categorieProduit', 'text')
-            ->add('codeProduit', 'text')
-            ->add('prixProduit', 'money')
-            ->add('producteur', 'entity', array(
-                'class' => 'AppBundle:Societe',
-                'property' => 'nomSociete',
-                'multiple' => false, 
-                'query_builder' => function(SocieteRepository $repo) {
-                    return $repo->getListeFournisseur();
-                } 
-            ))
-        ;
+        if( $options['produit_fournisseur'] )
+        {
+            $builder
+                ->add('nomProduit', 'text')
+                ->add('descriptionProduit', 'textarea')
+                ->add('categorieProduit', 'text')
+                ->add('codeProduit', 'text')
+                ->add('prixProduit', 'money')
+                ->add('producteur', 'entity', array(
+                    'class' => 'AppBundle:Societe',
+                    'property' => 'nomSociete',
+                    'multiple' => false, 
+                    'query_builder' => function(SocieteRepository $repo) {
+                        return $repo->getListeFournisseur();
+                    } 
+                )
+            );
+        }
+        else
+        {
+            //ajout d'un produit
+            $builder
+                    ->add('producteur', 'entity', array(
+                        'class'=>'AppBundle:Societe',
+                        'property' => 'nomSociete', 
+                        'multiple' => false, 
+                        'query_builder' => function(SocieteRepository $repo) {
+                            return $repo->getListeFournisseurStock();
+                            }
+                    ))
+                    ->add('codeProduit', 'text', array("label"=>"Code Produit"))
+                    ->add('nomProduit', 'text', array("label"=>"Nom"))
+                    ->add('descriptionProduit', 'text', array("label"=>"Description"))
+                    ->add('categorieProduit', 'text', array("label"=>"Catégorie"))
+                    ->add('prixProduit', 'text', array("label"=>"Prix"))
+                    ->add('quantite', 'integer');
+                    ->add('droit', 'submit');
+                    ->add('annuler', 'submit') ;
+        }
     }
     
     /**

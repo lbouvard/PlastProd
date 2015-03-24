@@ -24,13 +24,6 @@ class Produits
     /**
      * @var string
      *
-     * @ORM\Column(name="NomFournisseur", type="string", length=50)
-     */
-    private $nomFournisseur;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="NomProduit", type="string", length=50)
      */
     private $nomProduit;
@@ -90,6 +83,15 @@ class Produits
     */
     private $producteur;
 
+    private $quantite;
+
+    //constructeur
+    public function __construct()
+    {
+        $this->dateModif = null;
+        $this->bitModif  = 0;
+        $this->bitSup    = 0;
+    }
 
     /**
      * Get id
@@ -99,29 +101,6 @@ class Produits
     public function getIdtProduit()
     {
         return $this->idtProduit;
-    }
-
-    /**
-     * Set nomFournisseur
-     *
-     * @param string $nomFournisseur
-     * @return Produits
-     */
-    public function setNomFournisseur($nomFournisseur)
-    {
-        $this->nomFournisseur = $nomFournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Get nomFournisseur
-     *
-     * @return string 
-     */
-    public function getNomFournisseur()
-    {
-        return $this->nomFournisseur;
     }
 
     /**
@@ -318,5 +297,17 @@ class Produits
     public function getProducteur()
     {
         return $this->producteur;
+    }
+
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    public function getQuantite()
+    {
+        return $this->quantite;
     }
 }
