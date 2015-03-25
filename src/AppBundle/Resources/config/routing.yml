@@ -97,7 +97,17 @@ ajouter_fournisseur:
 gerer_nomenclature:
     path:    /nomenclature
     defaults: { _controller: AppBundle:Stock:nomenclature }
-
+selection_fournisseur:
+    path:     /nomenclature/selection/fournisseur
+    defaults: { _controller: AppBundle:Stock:selfournisseur }
+selection_materiau:
+    path:     /nomenclature/selection/materiau
+    defaults: { _controller: AppBundle:Stock:selmateriau }
+form_nomenclature:
+    path:     /nomenclature/form/{id}
+    defaults: { _controller: AppBundle:Stock:form_nomenclature, id: -1 }
+    requirements:
+        id: \d*
 
 # Module administration
 accueil_admin:

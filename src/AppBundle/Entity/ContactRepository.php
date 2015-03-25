@@ -18,7 +18,8 @@ class ContactRepository extends EntityRepository
 	    ->createQueryBuilder('c')
 	    ->join('c.societe', 'soc')
 	    ->where('soc.typeSociete = :type')
-	    ->setParameters(array('type'=> 'M'));
+	    ->andWhere('c.intitulePoste = :nom')
+	    ->setParameters(array('type'=> 'M', 'nom' => 'Commercial'));
 	}
 
 	public function getContactsParSociete($id)

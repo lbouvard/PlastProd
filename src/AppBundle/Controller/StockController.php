@@ -217,14 +217,24 @@ class StockController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Produits');
 
-        $listenomenclature = $repository->getListeProduitsInterne();
+        $listenomenclature = $repository->getNomenclature();
 
+        //Récupération de la liste des fournisseurs
+        $repository = $this
+        	->getDoctrine()
+        	->getManage()
+        	->getRepository('AppBundle:Societe');
+
+        $listefournisseur = $repository->getListeFournisseur();
+
+        return $this->render('AppBundle:Stock:nomenclature.html.twig', array('listenomenclature' => $listenomenclature,
+         	'listefournisseur' => $listefournisseur));
+/*
         //Mise en forme pour utilisation de la liste de produits en javascript
         $encoders = array(new XmlEncoder(), new JsonEncoder());
         $normalizers = array(new GetSetMethodNormalizer());
 
         $serializer = new Serializer($normalizers, $encoders);
-        /***************************************************************/
 
         // On crée un objet commande
         $commande = new Nomenclature();
@@ -257,6 +267,22 @@ class StockController extends Controller
         // afin qu'elle puisse afficher le formulaire toute seule
         return $this->render('AppBundle:Client:addorder.html.twig', array(
           'form' => $form->createView(), 'listeproduits' => $listeproduits, 'jslisteproduits' => $jslisteproduits
-        ));		
+        ));	
+*/
+
+	}
+
+	public function selfournisseurAction()
+	{
+		$id = $request->request->get('id');
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Contact');
+
+        $listecontact = $repository->getContactsParSociete($id);
+
+        return $this->render('AppBundle:Admin:selcontact.html.twig', array('listecontact' => $listecontact)); 
 	}
 }

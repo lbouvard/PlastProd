@@ -25,7 +25,7 @@ class PlatformController extends Controller
 	{
 	    // Si le visiteur est déjà identifié, on le redirige vers l'accueil
 	    if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-	    	return $this->redirect($this->generateUrl('clients'));
+	    	return $this->redirect($this->generateUrl('accueil'));
 	    }
 
 	    $session = $request->getSession();
@@ -43,7 +43,7 @@ class PlatformController extends Controller
 
 	    if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
     	{
-        	return $this->redirect($this->generateUrl('clients'));
+        	return $this->redirect($this->generateUrl('accueil'));
     	}
 
 		return $this->render('AppBundle:Platform:connexion.html.twig', array(

@@ -35,13 +35,29 @@
     		</select>
 		</div>
 
+		<div class="selection">
+			<select id="selfournisseur" class="form-control sel-largeur">
+		        <option value="-1" selected>Choisissez un fournisseur</option>
+		        {% for fournisseur in listefournisseur %}
+		            <option value="{{ fournisseur.nomProduit }}">{{ nom.codeProduit }}</option>
+		        {% endfor %}
+    		</select>
+		</div>
+
 		<div id="selfournisseur" class="selection" data-path="{{ path('selection_fournisseur') }}">
 			<select id="selectfournisseur" class="form-control sel-largeur">
     			<option value="-1" selected>--------</option>
 			</select>
 		</div>
 
+		<div id="selmateriau" class="selection" data-path="{{ path('selection_materiau') }}">
+			<select id="selectmateriau" class="form-control sel-largeur">
+				<option value="-1" selected>--------</option>
+			</select>
+		</div>
+
 		<div id="formnomenclature" data-path="{{ path('form_nomenclature') }}">
 		</div>
+
 	</div>
 {% endblock %}

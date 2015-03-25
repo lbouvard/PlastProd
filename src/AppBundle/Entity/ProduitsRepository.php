@@ -38,4 +38,17 @@ class ProduitsRepository extends EntityRepository
 				->getQuery()
 				->getSingleResult();
 	}
+
+	public function getNomenclature()
+	{
+		$qb = $this->createQueryBuilder('p')
+			->select('p.codeProduit')
+			->Join('p.producteur', 'pp')
+			->where('pp.nomSociete = :nom')
+			->setParameters(array('nom' => 'PlastProd'));
+
+		return $qb
+				->getQuery()
+				->getResult();
+	}
 }

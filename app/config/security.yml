@@ -28,25 +28,20 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        login:
-            # Cette expression régulière permet de prendre /login (mais pas /login_check !)
-            pattern:   ^/(connexion|accueil)
-            anonymous: true
-
         principal:
             pattern:  ^/
-            anonymous: false
+            anonymous: true
             provider: fournisseur
             form_login:
                 login_path: login
                 check_path: login_check
+                default_target_path: accueil
             logout:
                 path: logout
-                target: /accueil
+                target: accueil
             remember_me:
                 key:  "ghtdk7vhs"
                 lifetime: 2592000
-                path: /
                 domain: ~
 
     # with these settings you can restrict or allow access for different parts
