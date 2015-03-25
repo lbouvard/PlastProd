@@ -208,4 +208,55 @@ class StockController extends Controller
         	return $this->render('AppBundle:Stock:lignesajax.html.twig', array('lignes' => $lignes));
         }
 	}
+
+	public function nomenclatureAction(Request $request){
+
+        //Récupération de la liste des produits plastprod pour ajouter ou modifier les nomenclatures
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Produits');
+
+        $listenomenclature = $repository->getListeProduitsInterne();
+
+        //Mise en forme pour utilisation de la liste de produits en javascript
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new GetSetMethodNormalizer());
+
+        $serializer = new Serializer($normalizers, $encoders);
+        /***************************************************************/
+
+        // On crée un objet commande
+        $commande = new Nomenclature();
+
+        // On crée le FormBuilder grâce au service form factory
+        $form = $this->createForm(new CommandeType(), $commande);
+
+        if ($form->handleRequest($request)->isValid()) 
+        {
+          // On l'enregistre notre objet $commande dans la base de données.
+          $em = $this->getDoctrine()->getManager();
+          
+          $em->persist($commande);
+
+          foreach ($commande->getProduits()->toArray() as $commandeproduits) {
+            $commandeproduits->setCommande($commande);
+            $em->persist($commandeproduits);
+          }
+             
+          $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée.');
+
+          // On redirige vers la page de visualisation de la commande nouvellement créée
+          return $this->redirect($this->generateUrl('ajouter_commande'));
+        }
+
+        $jslisteproduits = $serializer->serialize($listeproduits, 'json');
+        // On passe la méthode createView() du formulaire à la vue
+        // afin qu'elle puisse afficher le formulaire toute seule
+        return $this->render('AppBundle:Client:addorder.html.twig', array(
+          'form' => $form->createView(), 'listeproduits' => $listeproduits, 'jslisteproduits' => $jslisteproduits
+        ));		
+	}
 }

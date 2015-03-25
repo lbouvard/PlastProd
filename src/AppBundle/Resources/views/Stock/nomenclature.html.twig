@@ -1,0 +1,47 @@
+{# src/AppBundle/Resources/views/Stock/nomenclature.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Stock - Gérer nomenclature
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/stock-gerer-nomenclature.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li><a href="{{ path('accueil_stock') }}">Stock</a></li>
+        	<li class="active">Gérer nomenclature</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Sélection de la nomenclature</h3>
+
+		<div class="selection">
+			<select id="selnomenclature" class="form-control sel-largeur">
+		        <option value="-1" selected>Choisissez une nomenclature</option>
+		        {% for nom in listenomenclature %}
+		            <option value="{{ nom.codeProduit }}">{{ nom.codeProduit }}</option>
+		        {% endfor %}
+    		</select>
+		</div>
+
+		<div id="selfournisseur" class="selection" data-path="{{ path('selection_fournisseur') }}">
+			<select id="selectfournisseur" class="form-control sel-largeur">
+    			<option value="-1" selected>--------</option>
+			</select>
+		</div>
+
+		<div id="formnomenclature" data-path="{{ path('form_nomenclature') }}">
+		</div>
+	</div>
+{% endblock %}

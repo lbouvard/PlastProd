@@ -26,14 +26,18 @@ $(document).ready(function() {
 	  			_operation = '=';
 	  		}
 
+	  		//maj date-save et value a la nouvelle valeur de quantite
+	  		$('#' + $(this)[0].id)[0].cells[4].firstChild.attributes['data-save'].value = _quantite;
+			$('#' + $(this)[0].id)[0].cells[4].firstChild.value = _quantite;
+
 	  		//opération ajax
 		    $.ajax({
 		        type: "POST",
 		        url: $("#flash").attr("data-path"),
 		        data: { id: $(this)[0].id, quantite: _quantite, prix: _prix, operation: _operation, valeur: _valeur},
 		        cache: false,
-		        success: function(data){
-		           $('#flash').html(data);
+		        success: function(data){    	
+		        	$('#flash').html(data);
 		        }
 		    }); 
 		}

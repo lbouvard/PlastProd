@@ -1,3 +1,4 @@
+# Autorisation et autentification
 accueil:
     path:     /accueil
     defaults: { _controller: AppBundle:Platform:accueil }
@@ -9,8 +10,7 @@ login_check:
 logout:
     pattern:  /logout
 
-
-
+# Module client
 accueil_client:
     path:     /client
     defaults: { _controller: AppBundle:Client:accueil }
@@ -31,18 +31,16 @@ ajouter_commande:
     defaults: { _controller: AppBundle:Client:ajoutCommande }
 
 
-
+# Module production
 accueil_prod:
     path:     /prod
     defaults:  { _controller: AppBundle:Production:index }
-
 gerer_bon:
     path:     /bon
     defaults: { _controller: AppBundle:Production:bon }
 rendu_bon:
     path:     /bon/rendu
     defaults: { _controller: AppBundle:Production:rendu }
-
 gerer_rebut:
     path:     /rebut
     defaults: { _controller: AppBundle:Production:rebut }
@@ -52,7 +50,6 @@ resultat_rebut:
 rendu_bon_rebut:
     path:     /rebut/resultat/bon
     defaults: { _controller: AppBundle:Production:rendu_rebut }
-
 gerer_etiquette:
     path:     /etiquette
     defaults: { _controller: AppBundle:Production:etiquette }
@@ -62,7 +59,6 @@ resultat_etiquette:
 rendu_bon_etiquette:
     path:     /etiquette/resultat/bon
     defaults: { _controller: AppBundle:Production:rendu_etiquette }
-
 suivi_prod:
     path:     /suivi
     defaults: { _controller: AppBundle:Production:suivi }
@@ -71,11 +67,10 @@ resultat_prod:
     defaults: { _controller: AppBundle:Production:resultat }
 
 
-
+# Module stock
 accueil_stock:
     path:     /stock
     defaults: { _controller: AppBundle:Stock:index }
-
 variation_stock:
     path:     /stock/modifier
     defaults: { _controller: AppBundle:Stock:variationStock }
@@ -88,7 +83,6 @@ ajouter_stock:
 ligne_stock:
     path:     /stock/produit/lignes
     defaults: { _controller: AppBundle:Stock:lignesProduit }
-
 gerer_fournisseur:
     path:     /fournisseur
     defaults: { _controller: AppBundle:Stock:fournisseur }
@@ -100,9 +94,12 @@ modifier_fournisseur:
 ajouter_fournisseur:
     path:    /fournisseur/ajout
     defaults: { _controller: AppBundle:Stock:ajoutFournisseur }
+gerer_nomenclature:
+    path:    /nomenclature
+    defaults: { _controller: AppBundle:Stock:nomenclature }
 
 
-
+# Module administration
 accueil_admin:
     path:     /admin
     defaults: { _controller: AppBundle:Admin:index }
@@ -117,14 +114,12 @@ contact_details:
 ajouter_contact:
     path:     /admin/contact/ajout
     defaults: { _controller: AppBundle:Admin:ajoutContact }
-
 gerer_compte:
     path:     /admin/compte
     defaults: { _controller: AppBundle:Admin:compte }
 gerer_droits:
     path:     /admin/droits
     defaults: { _controller: AppBundle:Admin:droits }
-
 form_compte:
     path:     /admin/compteform/{id}
     defaults: { _controller: AppBundle:Admin:form_compte, id: -1 }
@@ -135,15 +130,12 @@ form_droits:
     defaults: { _controller: AppBundle:Admin:form_droits, id: -1 }
     requirements:
         id: \d*
-
 utilisateur:
     path:     /admin/{type}/{id}
     defaults: { _controller: AppBundle:Admin:utilisateur }
     requirements:
         id: \d*
         type: compte|droits
-
 selection_contact:
     path:     /admin/selection/contact
     defaults: { _controller: AppBundle:Admin:selcontact }
-

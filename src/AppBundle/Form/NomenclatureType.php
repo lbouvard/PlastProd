@@ -17,7 +17,14 @@ class NomenclatureType extends AbstractType
         $builder
             ->add('produit','entity',array('class' => 'AppBundle:Produits','property' => 'codeProduit'))
 			->add('nombre','integer')
-			//->add('chaine','entity',array('class' => 'AppBundle:ListeChaine','property' => 'nomChaine'))
+			->add('produits', 'collection', array(
+                'type'         => new CommandeProduitsType(),
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false
+            ))
+            ->add('valider', 'submit')
+            ->add('annuler', 'reset')
         ;
     }
     

@@ -41,13 +41,6 @@ class Nomenclature
     */
     private $produit;
 	
-	private $nombre;
-	
-	public function getNombre()
-	{
-		return $this->nombre;
-	}
-
     /**
      * Get id
      *
