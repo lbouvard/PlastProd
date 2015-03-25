@@ -15,16 +15,9 @@ class NomenclatureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('produit','entity',array('class' => 'AppBundle:Produits','property' => 'codeProduit'))
-			->add('nombre','integer')
-			->add('produits', 'collection', array(
-                'type'         => new CommandeProduitsType(),
-                'allow_add'    => true,
-                'allow_delete' => true,
-                'by_reference' => false
-            ))
+			->add('quantite','integer')
             ->add('valider', 'submit')
-            ->add('annuler', 'reset')
+            ->add('annuler', 'submit')
         ;
     }
     

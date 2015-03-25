@@ -73,7 +73,7 @@ $(document).ready(function() {
     {
       $('#appbundle_commande_produits_' + index + '_codeproduit').val(produits[idproduit].codeProduit);
       $('#appbundle_commande_produits_' + index + '_nomproduit').val(produits[idproduit].nomProduit);
-      $('#appbundle_commande_produits_' + index + '_description').val(produits[idproduit].descriptionProduit);
+      /*$('#appbundle_commande_produits_' + index + '_description').val(produits[idproduit].descriptionProduit);*/
       $('#appbundle_commande_produits_' + index + '_quantite').val(1);
       $('#appbundle_commande_produits_' + index + '_prixproduit').val(produits[idproduit].prixProduit);
       $('#appbundle_commande_produits_' + index + '_prixtotal').val(produits[idproduit].prixProduit);

@@ -28,6 +28,22 @@ class ProduitsRepository extends EntityRepository
 	   			->getResult();
 	}
 
+	public function getMatierePremiereParFournisseur($id)
+	{
+	   $qb =  $this->createQueryBuilder('p')
+	   	->select('p.idtProduit')
+	   	->addSelect('p.codeProduit')
+	   	->addSelect('p.nomProduit')
+	   	->addSelect('p.descriptionProduit')
+	   	->addSelect('p.prixProduit')
+	    ->where('p.producteur = :id')
+	    ->setParameters(array('id'=> $id));
+
+	   return $qb
+	   			->getQuery()
+	   			->getResult();		
+	}
+
 	public function getProduitParId($id)
 	{
 		$qb = $this->createQueryBuilder('p')

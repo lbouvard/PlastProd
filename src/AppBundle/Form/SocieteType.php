@@ -17,7 +17,7 @@ class SocieteType extends AbstractType
         $builder
             ->add('nomSociete', 'text')
             ->add('adresse1', 'text')
-            ->add('adresse2', 'text')
+            ->add('adresse2', 'text', array('required' => false))
             ->add('codePostal', 'text')
             ->add('ville', 'text')
             ->add('pays', 'text')

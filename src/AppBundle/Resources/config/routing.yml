@@ -84,27 +84,24 @@ ligne_stock:
     path:     /stock/produit/lignes
     defaults: { _controller: AppBundle:Stock:lignesProduit }
 gerer_fournisseur:
-    path:     /fournisseur
+    path:     /stock/fournisseur
     defaults: { _controller: AppBundle:Stock:fournisseur }
 modifier_fournisseur:
-    path:     /fournisseur/{id}
+    path:     /stock/fournisseur/{id}
     defaults: { _controller: AppBundle:Stock:modifieFournisseur }
     requirements:
         id: \d*
 ajouter_fournisseur:
-    path:    /fournisseur/ajout
+    path:    /stock/fournisseur/ajout
     defaults: { _controller: AppBundle:Stock:ajoutFournisseur }
 gerer_nomenclature:
-    path:    /nomenclature
+    path:    /stock/nomenclature
     defaults: { _controller: AppBundle:Stock:nomenclature }
-selection_fournisseur:
-    path:     /nomenclature/selection/fournisseur
-    defaults: { _controller: AppBundle:Stock:selfournisseur }
 selection_materiau:
-    path:     /nomenclature/selection/materiau
+    path:     /stock/nomenclature/selection/materiau
     defaults: { _controller: AppBundle:Stock:selmateriau }
 form_nomenclature:
-    path:     /nomenclature/form/{id}
+    path:     /stock/nomenclature/form/{id}
     defaults: { _controller: AppBundle:Stock:form_nomenclature, id: -1 }
     requirements:
         id: \d*

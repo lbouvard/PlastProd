@@ -19,7 +19,7 @@ class CommandeProduitsType extends AbstractType
         $builder
             ->add('codeproduit', 'text', array('label' => false, 'read_only' => true))
             ->add('nomproduit', 'text', array('label' => false, 'read_only' => true))
-            ->add('description', 'text', array('label' => false, 'read_only' => true)) 
+            /*->add('description', 'text', array('label' => false, 'read_only' => true))*/
             ->add('prixproduit', 'money', array('label' => false, 'read_only' => true))
             ->add('quantite', 'integer', array('label' => false))
             ->add('prixtotal', 'money', array('label' => false, 'read_only' => true)) 

@@ -8,8 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Production;
 use AppBundle\Form\ProductionType;
-use AppBundle\Entity\Nomenclature;
-use AppBundle\Form\NomenclatureType;
+
 use BG\BarcodeBundle\Util\Base1DBarcode as barCode;
 
 class ProductionController extends Controller

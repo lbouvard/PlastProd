@@ -222,10 +222,10 @@ class StockController extends Controller
         //Récupération de la liste des fournisseurs
         $repository = $this
         	->getDoctrine()
-        	->getManage()
+        	->getManager()
         	->getRepository('AppBundle:Societe');
 
-        $listefournisseur = $repository->getListeFournisseur();
+        $listefournisseur = $repository->getListeFournisseur2();
 
         return $this->render('AppBundle:Stock:nomenclature.html.twig', array('listenomenclature' => $listenomenclature,
          	'listefournisseur' => $listefournisseur));
@@ -272,17 +272,17 @@ class StockController extends Controller
 
 	}
 
-	public function selfournisseurAction()
+	public function selmateriauAction(Request $request)
 	{
 		$id = $request->request->get('id');
 
         $repository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Contact');
+            ->getRepository('AppBundle:Produits');
 
-        $listecontact = $repository->getContactsParSociete($id);
+        $listematiere = $repository->getMatierePremiereParFournisseur($id);
 
-        return $this->render('AppBundle:Admin:selcontact.html.twig', array('listecontact' => $listecontact)); 
+        return $this->render('AppBundle:Stock:selmateriau.html.twig', array('listematiere' => $listematiere)); 
 	}
 }

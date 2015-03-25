@@ -1,0 +1,8 @@
+{# src/AppBundle/Resources/view/Stock/selcontact.html.twig #}
+
+<select id="selectcontact" class="form-control sel-largeur">
+    <option value="-1" selected>Choisissez un produit</option>
+    {% for matiere in listematiere %}
+        <option value="{{ matiere.idtProduit }}">{{ matiere.codeProduit ~ ' - ' ~ matiere.nomProduit }}</option>
+    {% endfor %}
+</select>
