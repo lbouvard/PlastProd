@@ -21,11 +21,14 @@ commande_details:
     path:     /client/commandes/details
     defaults: { _controller: AppBundle:Client:commandeDetails }
 clients_client:
-    path:     /client/admin
+    path:     /client/societe
     defaults: { _controller: AppBundle:Client:client }
 ajouter_client:
-    path:     /client/admin/ajout
+    path:     /client/societe/ajout
     defaults: { _controller: AppBundle:Client:ajoutClient }
+ajouter_contact:
+    path:     /client/contact/ajout
+    defaults: { _controller: AppBundle:Client:ajoutContact }
 ajouter_commande:
     path:     /client/commandes/ajout
     defaults: { _controller: AppBundle:Client:ajoutCommande }
@@ -120,9 +123,6 @@ contact_details:
     defaults: { _controller: AppBundle:Admin:details }
     requirements:
         id: \d*
-ajouter_contact:
-    path:     /admin/contact/ajout
-    defaults: { _controller: AppBundle:Admin:ajoutContact }
 gerer_compte:
     path:     /admin/compte
     defaults: { _controller: AppBundle:Admin:compte }

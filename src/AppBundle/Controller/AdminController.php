@@ -71,73 +71,6 @@ class AdminController extends Controller
 	    }
     }
 
-    //Permet d'ajouter un contact (mise en base + création d'un utilisateur par défaut en base également)
-    public function ajoutContactAction(Request $request)
-    {
-        //Pour génération mot de passe automatique
-        $encoder = new MessageDigestPasswordEncoder('sha512', true, 5000);
-
-        // On crée un objet contact
-        $contact = new Contact();
-
-        // On crée le FormBuilder grâce au service form factory
-        $form = $this->createForm(new ContactType(), $contact);
-
-        if ($form->handleRequest($request)->isValid()) 
-        {
-            //utilisateur lié au contact
-            $mdp = $this->random_password(8);
-
-            $user = new Utilisateur();
-            $user->setUsername(strtolower($contact->getNomContact().".".$contact->getPrenomContact()));
-            $user->setPassword( $encoder->encodePassword($mdp, $user->getSalt()) );
-            $user->setEmail($contact->getEmail());
-
-            //Par défaut, on rajoute le role client
-            $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('AppBundle:Role');
-
-            $roleclient = $repository->getRoleClient();
-
-            $user->addRole($roleclient[0]);
-
-            //on rajoute l'utilisateur au contact
-            $contact->setUtilisateur($user);
- 
-            $em = $this->getDoctrine()->getManager();
-            // On enregistre notre utilisateur dans la base de données.
-            $em->persist($user);
-            // et notre contact
-            $em->persist($contact);
-            
-            $em->flush();
-
-            //envoi du mail contenant le mot de passe du compte
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Votre compte PlastProd')
-                ->setFrom('support@free.fr')
-                //->setTo($contact->getEmail())
-                ->setTo('lbouvard57@gmail.com')
-                ->setBody("Bonjour ".$user->getUsername()."\r\nVotre mot de passe est le suivant : ".$mdp);
-                //->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('name' => $name)));
-
-            $this->get('mailer')->send($message);
-
-            //message de réussite
-            $request->getSession()->getFlashBag()->add('notice', 'Contact bien enregistré ('.$mdp.').');
-
-            // On redirige
-            return $this->redirect($this->generateUrl('accueil_admin'));
-        }
-
-        // On passe la méthode createView() du formulaire à la vue
-        // afin qu'elle puisse afficher le formulaire toute seule
-        return $this->render('AppBundle:Admin:addcontact.html.twig', array(
-                'form' => $form->createView()));
-    }
-
     //Permet de donner les détails d'un contact dans un formulaire pré-rempli (consultation et modification)
     public function detailsAction($id, Request $request)
     {
@@ -409,14 +342,6 @@ class AdminController extends Controller
 
             return $this->render('AppBundle:Admin:utilisateur.html.twig', array('utilisateur' => $user, 'droits' => $roles, 'type' => $type ) );
         }
-    }
-
-    //Permet de générer un mot de passe aléatoire pour la création d'un contact + utilisateur
-    private function random_password( $length = 8 )
-    {
-        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
-        $password = substr( str_shuffle( $chars ), 0, $length );
-        return $password;
     }
 
     private function recupererSociete()

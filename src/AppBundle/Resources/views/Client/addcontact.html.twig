@@ -1,19 +1,19 @@
-{# src/AppBundle/Resources/views/Admin/addcontact.html.twig #}
+{# src/AppBundle/Resources/views/Client/addcontact.html.twig #}
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Admin - Ajouter compte
+    {{ parent() }} - Client - Ajouter contact
 {% endblock %}
 
 {% block breadcrumb %}
         <ol class="breadcrumb">
-        	<li><a href="{{ path('accueil_admin') }}">Administration</a></li>
+        	<li><a href="{{ path('accueil_client') }}">Client</a></li>
         	<li class="active"><a href="{{ path('ajouter_contact') }}">Ajout contact</a></li>
         </ol>
 {% endblock %}
 
 {% block menu %}
-	{{ render(controller("AppBundle:Admin:menu")) }}
+	{{ render(controller("AppBundle:Client:menu")) }}
 {% endblock %}
 
 {% block body %}
