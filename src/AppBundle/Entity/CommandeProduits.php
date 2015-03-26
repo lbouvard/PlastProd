@@ -39,7 +39,7 @@ class CommandeProduits
     /**
      * @var string
      *
-     * @ORM\Column(name="DescriptionProduit", type="text")
+     * @ORM\Column(name="DescriptionProduit", type="text", nullable=true)
      */
     private $description;
 
