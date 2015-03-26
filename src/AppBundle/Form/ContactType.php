@@ -28,9 +28,9 @@ class ContactType extends AbstractType
             ->add('nomContact', 'text')
             ->add('prenomContact', 'text')
             ->add('intitulePoste', 'text')
-            ->add('telFixe', 'text')
-            ->add('telMobile', 'text')
-            ->add('fax', 'text')
+            ->add('telFixe', 'text', array('required' => false))
+            ->add('telMobile', 'text', array('required' => false))
+            ->add('fax', 'text', array('required' => false))
             ->add('email', 'text')
             ->add('adresse', 'text')
             ->add('codePostal', 'text')
@@ -38,7 +38,7 @@ class ContactType extends AbstractType
             ->add('pays', 'text')
             ->add('commentaire', 'textarea', array('required' => false))
             ->add('valider', 'submit')
-            ->add('annuler', 'reset')
+            ->add('annuler', 'submit')
         ;
     }
     

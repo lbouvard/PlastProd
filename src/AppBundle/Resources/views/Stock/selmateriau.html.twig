@@ -1,6 +1,11 @@
-{# src/AppBundle/Resources/view/Stock/selcontact.html.twig #}
+{# src/AppBundle/Resources/view/Stock/selmateriau.html.twig #}
 
-<select id="selectcontact" class="form-control sel-largeur">
+<script type="text/javascript">
+	//conversion json des données passé en paramètres
+	var listematiere = {{ jslistematiere|json_encode(constant('JSON_PRETTY_PRINT'))|raw  }};
+</script>
+
+<select id="selectmateriau" class="form-control sel-largeur">
     <option value="-1" selected>Choisissez un produit</option>
     {% for matiere in listematiere %}
         <option value="{{ matiere.idtProduit }}">{{ matiere.codeProduit ~ ' - ' ~ matiere.nomProduit }}</option>

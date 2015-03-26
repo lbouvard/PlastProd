@@ -18,6 +18,7 @@ class UtilisateurType extends AbstractType
             ->add('username', 'text')
             ->add('email', 'text')
             ->add('isActive', 'checkbox', array('required' => false))
+            ->add('mdpTemp', 'password', array('required' => false))
             ->add('modifier', 'submit');
 
             if( $options['utilise_droit'] )

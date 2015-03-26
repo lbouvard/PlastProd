@@ -36,34 +36,34 @@ accueil_prod:
     path:     /prod
     defaults:  { _controller: AppBundle:Production:index }
 gerer_bon:
-    path:     /bon
+    path:     /prod/bon
     defaults: { _controller: AppBundle:Production:bon }
 rendu_bon:
-    path:     /bon/rendu
+    path:     /prod/bon/rendu
     defaults: { _controller: AppBundle:Production:rendu }
 gerer_rebut:
-    path:     /rebut
+    path:     /prod/rebut
     defaults: { _controller: AppBundle:Production:rebut }
 resultat_rebut:
-    path:     /rebut/resultat
+    path:     /prod/rebut/resultat
     defaults: { _controller: AppBundle:Production:resultat_rebut }
 rendu_bon_rebut:
-    path:     /rebut/resultat/bon
+    path:     /prod/rebut/resultat/bon
     defaults: { _controller: AppBundle:Production:rendu_rebut }
 gerer_etiquette:
-    path:     /etiquette
+    path:     /prod/etiquette
     defaults: { _controller: AppBundle:Production:etiquette }
 resultat_etiquette:
-    path:     /etiquette/resultat
+    path:     /prod/etiquette/resultat
     defaults: { _controller: AppBundle:Production:resultat_etiquette }
 rendu_bon_etiquette:
-    path:     /etiquette/resultat/bon
+    path:     /prod/etiquette/resultat/bon
     defaults: { _controller: AppBundle:Production:rendu_etiquette }
 suivi_prod:
-    path:     /suivi
+    path:     /prod/suivi
     defaults: { _controller: AppBundle:Production:suivi }
 resultat_prod:
-    path:     /suivi/resultat
+    path:     /prod/suivi/resultat
     defaults: { _controller: AppBundle:Production:resultat }
 
 
@@ -80,6 +80,12 @@ modifier_stock:
 ajouter_stock:
     path:     /stock/produit/ajout
     defaults: { _controller: AppBundle:Stock:ajoutStock }
+supprimer_matiere:
+    path:     /stock/produit/suppression
+    defaults: { _controller: AppBundle:Stock:supprimeMatiere }
+selection_matierepremiere:
+    path:    /stock/matierepremiere/selection
+    defaults: { _controller: AppBundle:Stock:selmatierepremiere }
 ligne_stock:
     path:     /stock/produit/lignes
     defaults: { _controller: AppBundle:Stock:lignesProduit }
@@ -100,11 +106,7 @@ gerer_nomenclature:
 selection_materiau:
     path:     /stock/nomenclature/selection/materiau
     defaults: { _controller: AppBundle:Stock:selmateriau }
-form_nomenclature:
-    path:     /stock/nomenclature/form/{id}
-    defaults: { _controller: AppBundle:Stock:form_nomenclature, id: -1 }
-    requirements:
-        id: \d*
+
 
 # Module administration
 accueil_admin:

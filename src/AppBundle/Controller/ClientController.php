@@ -156,22 +156,28 @@ class ClientController extends Controller
 
         if ($form->handleRequest($request)->isValid()) 
         {
-          // On l'enregistre notre objet $commande dans la base de données.
-          $em = $this->getDoctrine()->getManager();
-          
-          $em->persist($commande);
+            $data = $request->request->get('appbundle_commande');
 
-          foreach ($commande->getProduits()->toArray() as $commandeproduits) {
-            $commandeproduits->setCommande($commande);
-            $em->persist($commandeproduits);
-          }
-             
-          $em->flush();
+            if( isset($data['produits']) ){
+                // On enregistre notre objet $commande dans la base de données.
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($commande);
 
-          $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée.');
+                foreach ($commande->getProduits()->toArray() as $commandeproduits) {
+                    $commandeproduits->setCommande($commande);
+                    $em->persist($commandeproduits);
+                }
 
-          // On redirige vers la page de visualisation de la commande nouvellement créée
-          return $this->redirect($this->generateUrl('ajouter_commande'));
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée.');
+            }
+            else{
+                $request->getSession()->getFlashBag()->add('info', 'Vous devez avoir au moins un produit pour faire une commande.');
+            }
+
+            // On redirige vers le formulaire d'ajout de commande
+            return $this->redirect($this->generateUrl('ajouter_commande'));
         }
 
         $jslisteproduits = $serializer->serialize($listeproduits, 'json');

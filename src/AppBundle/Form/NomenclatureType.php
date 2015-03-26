@@ -14,11 +14,7 @@ class NomenclatureType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-			->add('quantite','integer')
-            ->add('valider', 'submit')
-            ->add('annuler', 'submit')
-        ;
+
     }
     
     /**

@@ -2,15 +2,20 @@
 
 <ul class="nav nav-pills nav-stacked">
   <li>
-    <a href="{{ path('suivi_prod') }}">Suivi</a>
-  </li>
-	<li>
-    <a href="{{ path('gerer_bon') }}">Bon</a>
+    <a href="{{ path('suivi_prod') }}">Recherche</a>
   </li>
   <li>
-    <a href="{{ path('gerer_rebut') }}">Rebut</a>
+    <a href="{{ path('accueil_prod') }}">En cours</a>
   </li>
-	<li>
-    <a href="{{ path('gerer_etiquette') }}">Etiquette</a>
-  </li>
+  {% if is_granted('ROLE_GES_PRODUCTION') %}
+  	<li>
+      <a href="{{ path('gerer_bon') }}">Bon</a>
+    </li>
+    <li>
+      <a href="{{ path('gerer_rebut') }}">Rebut</a>
+    </li>
+  	<li>
+      <a href="{{ path('gerer_etiquette') }}">Etiquette</a>
+    </li>
+  {% endif %}
 </ul>

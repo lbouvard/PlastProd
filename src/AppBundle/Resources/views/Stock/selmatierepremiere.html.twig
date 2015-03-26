@@ -1,0 +1,8 @@
+{# src/AppBundle/Resources/view/Stock/selmatierepremiere.html.twig #}
+
+<select id="selectmatiere" class="form-control sel-largeur">
+    <option value="-1" selected>Choisissez une matière première</option>
+    {% for mat in listematieres %}
+        <option value="{{ mat.idtProduit }}">{{ mat.codeProduit ~ ' - ' ~ mat.nomProduit }}</option>
+    {% endfor %}
+</select>

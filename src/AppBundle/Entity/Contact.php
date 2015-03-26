@@ -45,7 +45,7 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="TelFixe", type="string", length=20)
+     * @ORM\Column(name="TelFixe", type="string", length=20, nullable=true)
      */
     private $telFixe;
 

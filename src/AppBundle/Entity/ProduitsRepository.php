@@ -21,7 +21,8 @@ class ProduitsRepository extends EntityRepository
 	   	->addSelect('p.descriptionProduit')
 	   	->addSelect('p.prixProduit')
 	    ->where('p.producteur = :id')
-	    ->setParameters(array('id'=> 1));
+	    ->andWhere('p.bitSup = :faux')
+	    ->setParameters(array('id'=> 1, 'faux' => 0));
 
 	   return $qb
 	   			->getQuery()
@@ -37,7 +38,8 @@ class ProduitsRepository extends EntityRepository
 	   	->addSelect('p.descriptionProduit')
 	   	->addSelect('p.prixProduit')
 	    ->where('p.producteur = :id')
-	    ->setParameters(array('id'=> $id));
+	    ->andWhere('p.bitSup = :faux')
+	    ->setParameters(array('id'=> $id, 'faux' => 0));
 
 	   return $qb
 	   			->getQuery()

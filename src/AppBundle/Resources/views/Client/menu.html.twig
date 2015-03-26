@@ -3,24 +3,30 @@
 <ul class="nav nav-pills nav-stacked">
 
     {% if is_granted('ROLE_CLIENT') %}
-      <li>
-        <a href="{{ path('accueil_client') }}">Accueil</a>
-      </li>
-      <li>
-        <a href="{{ path('commandes_client') }}">Commandes</a>
-      </li>
+
+        <li>
+          <a href="{{ path('accueil_client') }}">Accueil</a>
+        </li>
+        <li>
+          <a href="{{ path('commandes_client') }}">Commandes</a>
+        </li>
+
     {% else %}
-      <li>
-        <a href="{{ path('clients_client') }}">Clients</a>
-      </li>
-      <li>
-        <a href="{{ path('commandes_client') }}">Commandes</a>
-      </li>
-      <li>
-        <a href="{{ path('ajouter_commande') }}">Ajouter commande</a>
-      </li>
-      <li>
-        <a href="{{ path('ajouter_client') }}">Ajouter client</a>
-      </li>
+
+        <li>
+          <a href="{{ path('clients_client') }}">Clients</a>
+        </li>
+        <li>
+          <a href="{{ path('commandes_client') }}">Commandes</a>
+        </li>
+
+        {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_ADMIN') %}
+          <li>
+            <a href="{{ path('ajouter_commande') }}">Ajouter commande</a>
+          </li>
+          <li>
+            <a href="{{ path('ajouter_client') }}">Ajouter client</a>
+          </li>
+        {% endif %}
     {% endif %}  
 </ul>

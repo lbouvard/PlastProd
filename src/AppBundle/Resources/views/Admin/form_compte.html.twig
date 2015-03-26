@@ -40,7 +40,19 @@
 		      <div class="col-sm-1">
 		        {{ form_widget(form.isActive, {'attr': {'class': 'form-control'}}) }}
 		      </div>
-		    </div>	
+		    </div>
+
+		    <div class="form-group">
+
+		      {{ form_label(form.mdpTemp, "Nouveau mot de passe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+		      {{ form_errors(form.mdpTemp) }}
+
+		      <div class="col-sm-4">
+		        {{ form_widget(form.mdpTemp, {'attr': {'class': 'form-control'}}) }}
+		      </div>
+		    </div>
+
   			<br>
 		    <div id="submitform">
 		    	{{ form_widget(form.modifier, {'attr': {'class': 'btn btn-primary unique-taille'}}) }}

@@ -106,7 +106,7 @@ $(document).ready(function() {
 
       $('#totalcommande').html( String( totalfinal + parseInt($('#appbundle_commande_produits_' + position + '_prixtotal').val())) + " €" );
 
-      e.preventDefault();
+      //e.preventDefault();
 
       return false;
     });

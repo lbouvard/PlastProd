@@ -1,0 +1,51 @@
+{# src/AppBundle/Resources/views/Stock/supprimematiere.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Stock - Supprimer matière première
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('js/stock-general.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+        <ol class="breadcrumb">
+        	<li><a href="{{ path('accueil_stock') }}">Stock</a></li>
+        	<li class="active">Supprimer matière première</li>
+        </ol>
+{% endblock %}
+
+{% block menu %}
+	{{ render(controller("AppBundle:Stock:menu")) }}
+{% endblock %}
+
+{% block body %}
+	<div id="cadrebody">
+		<h3>Suppression d'une matière première</h3>
+
+		<div class="selection">
+			<select id="selfournisseur" class="form-control sel-largeur">
+		        <option value="-1" selected>Choisissez un fournisseur</option>
+		        {% for fourn in listefournisseur %}
+		            <option value="{{ fourn.idtSociete }}">{{ fourn.nomSociete }}</option>
+		        {% endfor %}
+    		</select>
+		</div>
+
+		<form action="{{ path('supprimer_matiere') }}" method="post">
+			<div id="selproduit" class="selection" data-path="{{ path('selection_matierepremiere') }}">
+				<select id="selectproduit" class="form-control sel-largeur">
+	    			<option value="-1" selected>--------</option>
+				</select>
+			</div>
+
+			<div id="boutonsupprimer">
+			    <button type="submit" id="btnsupprimer" name="btnsupprimer" class="btn btn-primary unique-taille">Supprimer</button>
+			    <input type="hidden" name="idtproduit" id="idtproduit"/>
+			</div>
+		</form>
+	</div>
+{% endblock %}

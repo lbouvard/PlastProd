@@ -144,7 +144,7 @@ class AdminController extends Controller
         $contact = $this->getDoctrine()
           ->getManager()
           ->getRepository('AppBundle:Contact')
-          ->getContactsDetails($id)
+          ->getContactDetails($id)
         ;
 
         // Et on construit le formBuilder avec cette instance de contact
@@ -152,16 +152,17 @@ class AdminController extends Controller
 
         if ($form->handleRequest($request)->isValid()) 
         {
+            if( $form->get('valider')->isClicked() ){
 
-            $em = $this->getDoctrine()->getManager();
-            //On persiste notre contact
-            $em->persist($contact);
+                $em = $this->getDoctrine()->getManager();
+                //On persiste notre contact
+                $em->persist($contact);
+                $em->flush();
+
+                //message de réussite
+                $request->getSession()->getFlashBag()->add('notice', 'Contact modifié avec succès.');
+            }
             
-            $em->flush();
-
-            //message de réussite
-            $request->getSession()->getFlashBag()->add('notice', 'Contact modifié avec succès.');
-
             // On redirige
             return $this->redirect($this->generateUrl('accueil_admin'));
         }
@@ -187,8 +188,8 @@ class AdminController extends Controller
     }
 
     //Permet d'afficher le formulaire d'un utilisateur pré rempli
-    public function form_compteAction($id, Request $request)
-    {
+    public function form_compteAction($id, Request $request){
+
         if( $id == -1 )
             $id = $request->request->get('id');
 
@@ -236,8 +237,7 @@ class AdminController extends Controller
     }
 
     //Permet d'afficher le formulaire des droits pré rempli d'un utilisateur
-    public function form_droitsAction($id, Request $request)
-    {
+    public function form_droitsAction($id, Request $request){
 
         if( $id == -1 )
         {
@@ -322,12 +322,20 @@ class AdminController extends Controller
 
         if( $type == 'compte' )
         {
+            
             $form = $this->createForm(new UtilisateurType(), $user, array('utilise_droit' => true) );
 
             if ($form->handleRequest($request)->isValid()) 
             {
                 if( $form->get('modifier')->isClicked() )
                 {
+                    //traitement pour le mot de passe
+                    if( null !== $form->get('mdpTemp')->getData() ){
+                        $encoder = new MessageDigestPasswordEncoder('sha512', true, 5000);
+                        $user->setPassword( $encoder->encodePassword($form->get('mdpTemp')->getData(), $user->getSalt()) );
+                        $user->setMdpTemp('');
+                    }
+                    
                     $em->flush();
 
                     $request->getSession()->getFlashBag()->add('notice', 'Utilisateur modifié avec succès.');

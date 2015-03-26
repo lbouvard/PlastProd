@@ -87,6 +87,8 @@ class Utilisateur implements AdvancedUserInterface, \Serializable
      */
     private $roles;
 
+    private $mdpTemp;
+
     public function __construct()
     {
         //initialisation
@@ -187,6 +189,19 @@ class Utilisateur implements AdvancedUserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+    }
+
+
+    public function setMdpTemp($mdptemp)
+    {
+        $this->mdpTemp = $mdptemp;
+
+        return $this;
+    }
+
+    public function getMdpTemp()
+    {
+        return $this->mdpTemp;
     }
 
     /**

@@ -11,8 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Produits;
 use AppBundle\Entity\Stock;
 use AppBundle\Entity\Societe;
+use AppBundle\Entity\Nomenclature;
 use AppBundle\Form\SocieteType;
 use AppBundle\Form\ProduitsType;
+
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class StockController extends Controller
 {
@@ -130,6 +136,38 @@ class StockController extends Controller
 		return $this->render('AppBundle:Stock:ajoutstock.html.twig', array('form' => $form->createView()));
 	}
 
+	public function supprimeMatiereAction(Request $request){
+    	
+    	$repository = $this
+			->getDoctrine()
+			->getManager()
+			->getRepository('AppBundle:Societe');
+
+		$listefournisseur = $repository->getListeFournisseur2();
+
+        if ($request->isMethod('POST') ){
+
+        	$idproduit = $request->request->get('idtproduit');
+        	
+        	if( null !== $request->request->get('btnsupprimer') && $idproduit != '' ){  
+
+                $em = $this->getDoctrine()->getManager();
+                $matiere = $em->getRepository('AppBundle:Produits')->findOneByIdtProduit($idproduit);
+                $matiere->setBitSup(1);
+                $em->persist($matiere);
+                        
+          		$em->flush();
+
+          		$request->getSession()->getFlashBag()->add('notice', 'La matière première a été supprimée.');
+            }
+            else{
+            	$request->getSession()->getFlashBag()->add('info', 'Aucune matière n\'a été sélectionné. Aucune suppression faite.');
+            }
+        }
+
+        return $this->render('AppBundle:Stock:supprimematiere.html.twig', array('listefournisseur' => $listefournisseur) );
+	}
+
 	public function modifieStockAction(){
     	
     	$repository = $this
@@ -211,69 +249,62 @@ class StockController extends Controller
 
 	public function nomenclatureAction(Request $request){
 
-        //Récupération de la liste des produits plastprod pour ajouter ou modifier les nomenclatures
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Produits');
+        if ($request->isMethod('POST') ){
 
-        $listenomenclature = $repository->getNomenclature();
+        	if( null !== $request->request->get('btnvalider') ){  
+
+                $listematieres = $request->request->get('nomenclature');
+                $codenomenclature = $request->request->get('codenomenclature');
+                
+                $em = $this->getDoctrine()->getManager();
+
+                foreach($listematieres as $valeur){
+                	
+                	$produit = $em->getRepository('AppBundle:Produits')->findOneByIdtProduit($valeur['pid']);
+
+                	$nomenclature = new Nomenclature();
+                	$nomenclature->setQuantite($valeur['quantite']);
+                	$nomenclature->setProduit($produit);
+                	$nomenclature->setCodeProduit($codenomenclature);
+
+                	$em->persist($nomenclature);
+                }
+                        
+          		$em->flush();
+          		$request->getSession()->getFlashBag()->add('notice', 'La nomenclature a été bien enregistrée.');
+
+          		return $this->redirect($this->generateUrl('gerer_fournisseur'));
+            }
+        }
+
+		$em = $this->getDoctrine()->getManager();
+		
+		//Récupération de la liste des produits plastprod qui n'ont pas encore de nomenclature
+		$query = $em->createQuery(
+		    'SELECT p.codeProduit FROM AppBundle:Produits p 
+				INNER JOIN AppBundle:Societe s 
+				WHERE p.producteur = s.idtSociete AND p.codeProduit NOT IN 
+				(
+   					SELECT n.codeProduit FROM AppBundle:Nomenclature n GROUP BY n.codeProduit 
+   				) AND s.nomSociete = :nom')->setParameter('nom', 'PlastProd');
+		
+		$listenomenclature = $query->getResult();
+
 
         //Récupération de la liste des fournisseurs
-        $repository = $this
-        	->getDoctrine()
-        	->getManager()
-        	->getRepository('AppBundle:Societe');
-
+        $repository = $em->getRepository('AppBundle:Societe');
         $listefournisseur = $repository->getListeFournisseur2();
 
         return $this->render('AppBundle:Stock:nomenclature.html.twig', array('listenomenclature' => $listenomenclature,
          	'listefournisseur' => $listefournisseur));
-/*
-        //Mise en forme pour utilisation de la liste de produits en javascript
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new GetSetMethodNormalizer());
-
-        $serializer = new Serializer($normalizers, $encoders);
-
-        // On crée un objet commande
-        $commande = new Nomenclature();
-
-        // On crée le FormBuilder grâce au service form factory
-        $form = $this->createForm(new CommandeType(), $commande);
-
-        if ($form->handleRequest($request)->isValid()) 
-        {
-          // On l'enregistre notre objet $commande dans la base de données.
-          $em = $this->getDoctrine()->getManager();
-          
-          $em->persist($commande);
-
-          foreach ($commande->getProduits()->toArray() as $commandeproduits) {
-            $commandeproduits->setCommande($commande);
-            $em->persist($commandeproduits);
-          }
-             
-          $em->flush();
-
-          $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée.');
-
-          // On redirige vers la page de visualisation de la commande nouvellement créée
-          return $this->redirect($this->generateUrl('ajouter_commande'));
-        }
-
-        $jslisteproduits = $serializer->serialize($listeproduits, 'json');
-        // On passe la méthode createView() du formulaire à la vue
-        // afin qu'elle puisse afficher le formulaire toute seule
-        return $this->render('AppBundle:Client:addorder.html.twig', array(
-          'form' => $form->createView(), 'listeproduits' => $listeproduits, 'jslisteproduits' => $jslisteproduits
-        ));	
-*/
-
 	}
 
 	public function selmateriauAction(Request $request)
 	{
+		$encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new GetSetMethodNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+
 		$id = $request->request->get('id');
 
         $repository = $this
@@ -283,6 +314,22 @@ class StockController extends Controller
 
         $listematiere = $repository->getMatierePremiereParFournisseur($id);
 
-        return $this->render('AppBundle:Stock:selmateriau.html.twig', array('listematiere' => $listematiere)); 
+        $jslistematiere = $serializer->serialize($listematiere, 'json');
+
+        return $this->render('AppBundle:Stock:selmateriau.html.twig', array('listematiere' => $listematiere, 'jslistematiere' => $jslistematiere)); 
 	}
+
+	public function selmatierepremiereAction(Request $request)
+    {
+        $id = $request->request->get('id');
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Produits');
+
+        $listematieres = $repository->getMatierePremiereParFournisseur($id);
+
+        return $this->render('AppBundle:Stock:selmatierepremiere.html.twig', array('listematieres' => $listematieres));           
+    }
 }

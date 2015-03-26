@@ -56,7 +56,30 @@ $(document).ready(function() {
 	           $('#lignesParProduit').html(data);
 	        }
 	    });
-		
+	});
+
+	$('#selfournisseur').on( "change", function() {
+
+		if( $(this)[0].value != '-1')
+		{
+			$.ajax({
+				type: "POST",
+				url: $("#selproduit").attr("data-path"),
+				data: 'id=' + $(this)[0].value,
+				cache: false,
+				success: function(data){
+					$('#selproduit').html(data);
+				}
+			});
+		}
+	});
+
+	$(document).on( "change", "#selectmatiere", function() {
+
+		if( $(this)[0].value != '-1')
+		{
+			$("#idtproduit")[0].value = $(this)[0].value;
+		}
 	});
 
 });

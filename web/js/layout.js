@@ -95,6 +95,12 @@ $( document ).ready(function() {
     $(document).on('click', '#btnajoutfournisseur', function() {
       var url = $("#btnajoutfournisseur").attr("data-path");
       $(location).attr('href',url);
-    });   
+    }); 
+
+    //Stock - Matière première
+    $(document).on('click', '#btnsupprimematiere', function() {
+      var url = $("#btnsupprimematiere").attr("data-path");
+      $(location).attr('href',url);
+    });       
 
 });
