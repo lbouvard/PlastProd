@@ -170,13 +170,16 @@ class StockController extends Controller
 
 	public function modifieStockAction(){
     	
-    	$repository = $this
-			->getDoctrine()
-			->getManager()
-			->getRepository('AppBundle:Stock');
+    	$em = $this->getDoctrine()->getManager();
 
-		$listestock = $repository->getListeStock();	
+		$query = $em->createQuery('SELECT p.idtProduit, s.nomSociete, p.codeProduit, p.nomProduit, p.categorieProduit, p.descriptionProduit, p.prixProduit, COUNT(t.produit) AS quantite FROM AppBundle:Produits p 
+			LEFT JOIN AppBundle:Stock t WITH t.produit = p.idtProduit 
+			INNER JOIN AppBundle:Societe s 
+			WHERE p.producteur = s.idtSociete AND p.bitSup = 0 GROUP BY p.idtProduit'
+		);
 		
+		$listestock = $query->getResult();
+
 		return $this->render('AppBundle:Stock:modifiestock.html.twig', array('listestock' => $listestock) );
 	}
 

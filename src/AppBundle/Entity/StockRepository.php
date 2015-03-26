@@ -22,7 +22,11 @@ class StockRepository extends EntityRepository
 		WHERE t.bitSup = 0 GROUP BY Produit_id
 
 
-		SELECT p.IdtProduit, p.CodeProduit, COUNT(t.Produit_id) FROM tabproduits p LEFT JOIN tabstock t ON p.IdtProduit = t.Produit_id WHERE p.bitSup = 0 GROUP BY p.IdtProduit
+		SELECT p.IdtProduit, s.NomSociete, p.CodeProduit, p.NomProduit, p.CategorieProduit, p.DescriptionProduit, p.PrixProduit, COUNT(t.Produit_id) 
+		FROM tabproduits p 
+		LEFT JOIN tabstock t ON p.IdtProduit = t.Produit_id 
+		INNER JOIN tabsociete s ON p.Producteur_id = s.IdtSociete 
+		WHERE p.bitSup = 0 GROUP BY p.IdtProduit
 		*/
 
 	    $qb = $this->createQueryBuilder('s')
