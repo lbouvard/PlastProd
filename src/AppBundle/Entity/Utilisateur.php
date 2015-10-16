@@ -26,7 +26,7 @@ class Utilisateur implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="string", length=25, unique=true)
+     * @ORM\Column(name="Nom", type="string", length=25)
      */
     private $username;
 
@@ -40,7 +40,7 @@ class Utilisateur implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="Email", type="string", length=60, unique=true)
+     * @ORM\Column(name="Email", type="string", length=60)
      */
     private $email;
 

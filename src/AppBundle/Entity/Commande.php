@@ -24,6 +24,13 @@ class Commande
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="NumeroCommande", type="string", length=20)
+     */
+    private $numeroCommande;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="DateCommande", type="datetime", nullable=true)
@@ -43,6 +50,13 @@ class Commande
      * @ORM\Column(name="Commentaire", type="text", nullable=true)
      */
     private $commentaire;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Type", type="string", length=2)
+     */
+    private $type;
 
     /**
      * @var \DateTime
@@ -86,15 +100,39 @@ class Commande
     public function __construct() 
     {
         $this->dateCommande = new \datetime();
-        $this->etatCommande = "Validée";
+        $this->etatCommande = "En cours de traitement";
         $this->commentaire = null;
         $this->dateChg = null;
         $this->bitChg = 0;
         $this->bitSup = 0;
-
+        $this->type = "CD";
 
         $this->produits = new ArrayCollection();
     }
+
+    /**
+     * Set numeroCommande
+     *
+     * @param string $numeroCommande
+     * @return commande
+     */
+    public function setNumeroCommande($numeroCommande)
+    {
+        $this->numeroCommande = $numeroCommande;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroCommande
+     *
+     * @return string 
+     */
+    public function getNumeroCommande()
+    {
+        return $this->numeroCommande;
+    }
+
 
     public function setProduits(ArrayCollection $produits)
     {
@@ -210,6 +248,29 @@ class Commande
     public function getCommentaire()
     {
         return $this->commentaire;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Commande
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

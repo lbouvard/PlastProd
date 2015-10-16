@@ -30,7 +30,9 @@ class CommandeRepository extends EntityRepository
 	    ->createQueryBuilder('c')
 	    ->Join('c.commercial', 'com')
 	    ->addSelect('com.nomContact')
-	    ->Join('c.client', 'cli');
+	    ->Join('c.client', 'cli')
+	   	->where('c.type = :type')
+	    ->setParameters(array('type'=> 'CD'));
 
 	  return $qb
 	    ->getQuery()
@@ -46,7 +48,8 @@ class CommandeRepository extends EntityRepository
 	    ->addSelect('com.nomContact')
 	    ->Join('c.client', 'cli')
 	    ->where('cli.idtSociete = :id')
-	    ->setParameters(array('id'=> $id));
+	    ->andWhere('c.type = :type')
+	    ->setParameters(array('id'=> $id, 'type' => 'CD'));
 
 	  return $qb
 	    ->getQuery()

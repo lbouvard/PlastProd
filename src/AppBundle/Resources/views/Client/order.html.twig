@@ -39,7 +39,7 @@
             <tbody>
                 {% for commande in listecommande %}
                     <tr name='com' id='{{ commande[0].id }}'>
-                        <td>{{ commande[0].id }}</td>
+                        <td>{{ commande[0].numeroCommande }}</td>
                         <td>{{ commande[0].dateCommande|date('d-m-Y H:i:s') }}</td>
                         <td>{{ commande[0].etatCommande }}</td>
                         <td>{{ commande[0].commentaire }}</td>
