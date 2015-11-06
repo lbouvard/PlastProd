@@ -1,8 +1,8 @@
-# This file is a "template" of what your parameters.yml file should look like
+# This file is auto-generated during the composer install
 parameters:
-    database_driver: sqlsrv
+    database_driver: pdo_mysql
     database_host: localhost
-    database_port: 1433
+    database_port: 3306
     database_name: SVRPROD
     database_user: UserWeb
     database_password: 'Uz28*Cesi'
